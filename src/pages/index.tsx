@@ -1,5 +1,5 @@
-import Foo from '../components/Foo'
+import RegistrationForm from '../components/RegistrationForm'
 
 export default function HomePage() {
-  return <Foo />
+  return <RegistrationForm />
 }
