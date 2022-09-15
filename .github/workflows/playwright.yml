@@ -14,11 +14,11 @@ jobs:
         with:
           node-version: '16.x'
       - name: Install dependencies
-        run: npm i
+        run: yarn
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npm run test:e2e
+        run: yarn test:e2e
       - uses: actions/upload-artifact@v3
         if: always()
         with:
