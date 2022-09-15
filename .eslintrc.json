@@ -1,3 +1,31 @@
 {
-  "extends": ["next/core-web-vitals", "prettier"]
+  "env": {
+    "jest/globals": true
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "jest",
+    "jsx-a11y",
+    "react-hooks"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+        "src/**/*.{test,spec}.{js,jsx,ts,tsx}"
+      ],
+      "env": {
+        "jest/globals": true
+      },
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"],
+      "plugins": ["jest"]
+    }
+  ]
 }
