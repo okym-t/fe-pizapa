@@ -8,7 +8,7 @@ import {
   Input,
   Textarea,
 } from '@chakra-ui/react'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { regFormSchema } from 'src/schemas'
 import type { RegFormSchema } from 'src/schemas'
@@ -29,10 +29,33 @@ const RegistrationForm: FC = () => {
     },
     resolver: zodResolver(regFormSchema),
   })
-  const onSubmit: SubmitHandler<RegFormSchema> = (data) => {
-    console.log(data)
-    reset()
+  const onSubmit: SubmitHandler<RegFormSchema> = async (data) => {
+    try {
+      const response = await fetch('/api/post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (response.status !== 200) {
+        console.log('error')
+      } else {
+        console.log('success')
+        reset()
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  const getPosts = async () => {
+    const response = await fetch('/api/post')
+    const posts = await response.json()
+    console.log(posts)
+  }
+
+  useEffect(() => {
+    getPosts()
+  }, [])
 
   return (
     <Box p={3} w='md' borderWidth='1px' borderRadius='lg' boxShadow='base'>
