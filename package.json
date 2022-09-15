@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-template",
+  "name": "fe-pizapa",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,9 @@
     "test": "jest",
     "test:coverage": "jest --collectCoverage",
     "snapshot": "jest --updateSnapshot",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "db:auth": "pscale auth login",
+    "db:dev": "pscale connect fe-pizapa main --port 3309"
   },
   "dependencies": {
     "@chakra-ui/icons": "2.0.9",
@@ -20,6 +22,7 @@
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
     "@hookform/resolvers": "^2.9.8",
+    "@prisma/client": "^4.3.1",
     "framer-motion": "7.2.0",
     "next": "12.3.0",
     "react": "18.2.0",
@@ -39,6 +42,7 @@
     "jest": "28.1.3",
     "jest-environment-jsdom": "28.1.3",
     "prettier": "2.7.1",
+    "prisma": "^4.3.1",
     "typescript": "4.7.4"
   }
 }
