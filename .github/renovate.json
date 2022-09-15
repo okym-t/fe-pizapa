@@ -1,0 +1,12 @@
+{
+  "extends": ["config:base"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "depTypeList": ["devDependencies"],
+      "automerge": false
+    }
+  ],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["every weekend"]
+}
