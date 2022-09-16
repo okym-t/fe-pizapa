@@ -1,28 +1,27 @@
-import { PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from 'src/lib/prismaClient'
 import type { RegFormSchema } from 'src/schemas'
-
-const prisma = new PrismaClient()
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await new Promise((r) => setTimeout(r, 2000))
   if (req.method === 'GET') {
     return await getPosts(req, res)
   } else if (req.method === 'POST') {
     return await createPost(req, res)
   } else {
-    return res.status(405).json({ message: 'Method not allowed' })
+    return res.status(405).json({ error: { message: 'Method not allowed' } })
   }
 }
 
 async function getPosts(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const users = await prisma.post.findMany()
-    return res.status(200).json(users)
+    const posts = await prisma.post.findMany()
+    return res.status(200).json(posts)
   } catch (error) {
-    res.status(500).json({ error: 'Error' })
+    res.status(500).json({ error: { message: 'Server Error' } })
   }
 }
 
@@ -34,6 +33,6 @@ async function createPost(req: NextApiRequest, res: NextApiResponse) {
     })
     return res.status(200).json(newEntry)
   } catch (error) {
-    res.status(500).json({ error: 'Error' })
+    res.status(500).json({ error: { message: 'Server Error' } })
   }
 }
