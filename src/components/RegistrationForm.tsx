@@ -8,11 +8,13 @@ import {
   Input,
   Textarea,
 } from '@chakra-ui/react'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { regFormSchema } from 'src/schemas'
 import type { RegFormSchema } from 'src/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useSWR from 'swr'
+import { Post } from '@prisma/client'
 
 const RegistrationForm: FC = () => {
   const {
@@ -47,18 +49,13 @@ const RegistrationForm: FC = () => {
     }
   }
 
-  const getPosts = async () => {
-    const response = await fetch('/api/post')
-    const posts = await response.json()
-    console.log(posts)
-  }
-
-  useEffect(() => {
-    getPosts()
-  }, [])
+  const { data, isLoading } = useSWR<Post>('/api/post')
+  if (isLoading) return <div>...loading</div>
+  if (!data) return <div>error</div>
 
   return (
     <Box p={3} w='md' borderWidth='1px' borderRadius='lg' boxShadow='base'>
+      {JSON.stringify(data)}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name !== undefined} isRequired>
           <FormLabel htmlFor='username' mt={2}>
