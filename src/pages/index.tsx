@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'src/components/ErrorBoundary'
+import { Spinner } from '@chakra-ui/react'
 
 const RegistrationForm = dynamic(
   () => import('../components/RegistrationForm'),
@@ -12,8 +13,8 @@ const RegistrationForm = dynamic(
 
 export default function HomePage() {
   return (
-    <ErrorBoundary FallbackComponent={<h2>Could not fetch posts.</h2>}>
-      <Suspense fallback={<div>hoge</div>}>
+    <ErrorBoundary FallbackComponent={<div>error!!</div>}>
+      <Suspense fallback={<Spinner />}>
         <RegistrationForm />
       </Suspense>
     </ErrorBoundary>
