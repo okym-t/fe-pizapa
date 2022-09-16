@@ -49,9 +49,7 @@ const RegistrationForm: FC = () => {
     }
   }
 
-  const { data, isLoading } = useSWR<Post>('/api/post')
-  if (isLoading) return <div>...loading</div>
-  if (!data) return <div>error</div>
+  const { data } = useSWR<Post>('/api/post')
 
   return (
     <Box p={3} w='md' borderWidth='1px' borderRadius='lg' boxShadow='base'>

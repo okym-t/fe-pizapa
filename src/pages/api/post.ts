@@ -2,16 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from 'src/lib/prismaClient'
 import type { RegFormSchema } from 'src/schemas'
 
-export interface Error {
-  error: {
-    message: string
-  }
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await new Promise((r) => setTimeout(r, 2000))
   if (req.method === 'GET') {
     return await getPosts(req, res)
   } else if (req.method === 'POST') {
