@@ -9,51 +9,17 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { FC } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { regFormSchema } from 'src/schemas'
-import type { RegFormSchema } from 'src/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
 import useSWR from 'swr'
 import { Post } from '@prisma/client'
+import { useRegistrationForm, URL } from 'src/hooks/useRegistrationForm'
 
 const RegistrationForm: FC = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<RegFormSchema>({
-    defaultValues: {
-      name: '',
-      isAnonymous: false,
-      title: '',
-      description: '',
-    },
-    resolver: zodResolver(regFormSchema),
-  })
-  const onSubmit: SubmitHandler<RegFormSchema> = async (data) => {
-    try {
-      const response = await fetch('/api/post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (response.status !== 200) {
-        console.log('error')
-      } else {
-        console.log('success')
-        reset()
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const { data } = useSWR<Post>('/api/post')
+  const [register, handleSubmit, errors, onSubmit] = useRegistrationForm()
+  const { data: posts } = useSWR<Post[]>(URL)
 
   return (
     <Box p={3} w='md' borderWidth='1px' borderRadius='lg' boxShadow='base'>
-      {JSON.stringify(data)}
+      {JSON.stringify(posts)}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name !== undefined} isRequired>
           <FormLabel htmlFor='username' mt={2}>
