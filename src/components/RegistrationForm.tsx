@@ -9,13 +9,12 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { FC } from 'react'
-import useSWR from 'swr'
-import { Post } from '@prisma/client'
-import { useRegistrationForm, URL } from 'src/hooks/useRegistrationForm'
+import { usePostList } from 'src/hooks/usePostList'
+import { useRegistrationForm } from 'src/hooks/useRegistrationForm'
 
 const RegistrationForm: FC = () => {
   const [register, handleSubmit, errors, onSubmit] = useRegistrationForm()
-  const { data: posts } = useSWR<Post[]>(URL)
+  const { data: posts } = usePostList()
 
   return (
     <Box p={3} w='md' borderWidth='1px' borderRadius='lg' boxShadow='base'>
