@@ -1,22 +1,11 @@
-import { Suspense } from 'react'
+import { Layout } from 'src/layout/layout'
+import Posts from './posts'
+import { NextPageWithLayout } from './_app'
 
-import dynamic from 'next/dynamic'
-import ErrorBoundary from 'src/components/functional/ErrorBoundary'
-import { Spinner } from '@chakra-ui/react'
-
-const RegistrationForm = dynamic(
-  () => import('../components/model/post/RegistrationForm'),
-  {
-    ssr: false,
-  }
-)
-
-export default function HomePage() {
-  return (
-    <ErrorBoundary FallbackComponent={<div>error!!</div>}>
-      <Suspense fallback={<Spinner />}>
-        <RegistrationForm />
-      </Suspense>
-    </ErrorBoundary>
-  )
+export const Top: NextPageWithLayout = () => {
+  return <Posts />
 }
+
+Top.getLayout = (page) => <Layout>{page}</Layout>
+
+export default Top

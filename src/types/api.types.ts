@@ -5,6 +5,6 @@ export interface ErrorResponse {
 }
 
 export const PostStatus = {
-  open: 0,
-  closed: 1,
+  open: 1,
+  closed: 2,
 } as const
