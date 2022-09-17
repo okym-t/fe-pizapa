@@ -1,4 +1,5 @@
-import { Input } from '@chakra-ui/react'
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import { Search2Icon } from '@chakra-ui/icons'
 import { FC, SyntheticEvent } from 'react'
 
 type Props = {
@@ -11,7 +12,14 @@ const SearchInput: FC<Props> = ({ setSearchStr }) => {
     setSearchStr(target.value)
   }
 
-  return <Input placeholder='Search' size='md' onChange={handleSearch} />
+  return (
+    <InputGroup>
+      <InputLeftElement pointerEvents='none'>
+        <Search2Icon color='gray.400' />
+      </InputLeftElement>
+      <Input placeholder='Search' size='md' onChange={handleSearch} />
+    </InputGroup>
+  )
 }
 
 export default SearchInput
