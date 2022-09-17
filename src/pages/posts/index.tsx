@@ -1,18 +1,18 @@
 import { Suspense } from 'react'
 
 import dynamic from 'next/dynamic'
-import ErrorBoundary from 'src/components/ErrorBoundary'
-import { Spinner } from '@chakra-ui/react'
+import ErrorBoundary from 'src/components/functional/ErrorBoundary'
+import PageSpinner from 'src/components/ui/PageSpinner'
 
-const PostCardList = dynamic(() => import('src/components/PostCardList'), {
+const PostPage = dynamic(() => import('src/components/page/PostPage'), {
   ssr: false,
 })
 
 export default function Posts() {
   return (
     <ErrorBoundary FallbackComponent={<div>error!!</div>}>
-      <Suspense fallback={<Spinner />}>
-        <PostCardList />
+      <Suspense fallback={<PageSpinner />}>
+        <PostPage />
       </Suspense>
     </ErrorBoundary>
   )

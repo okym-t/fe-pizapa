@@ -10,10 +10,10 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import { usePostList } from 'src/hooks/usePostList'
-import { useRegistrationForm } from 'src/hooks/useRegistrationForm'
+import { useRegisterPostForm } from 'src/hooks/useRegisterPostForm'
 
 const RegistrationForm: FC = () => {
-  const [register, handleSubmit, errors, onSubmit] = useRegistrationForm()
+  const [register, handleSubmit, errors, onSubmit] = useRegisterPostForm()
   const { data: posts } = usePostList()
 
   return (
