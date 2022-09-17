@@ -13,7 +13,7 @@ const SearchInput: FC<Props> = ({ setSearchStr }) => {
   }
 
   return (
-    <InputGroup>
+    <InputGroup bgColor='white'>
       <InputLeftElement pointerEvents='none'>
         <Search2Icon color='gray.400' />
       </InputLeftElement>

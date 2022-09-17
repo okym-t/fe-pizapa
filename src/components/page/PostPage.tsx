@@ -9,7 +9,7 @@ const PostsPage: FC = () => {
   const [isOpenOnly, setIsOpenOnly] = useState(false)
 
   return (
-    <Box p={6}>
+    <Box p={6} bgColor='#f2f5fa' h='calc(100vh)'>
       <Center>
         <Stack spacing={3} maxW={'880px'} w={'full'}>
           <Stack direction={'row'} justifyContent='space-between'>
