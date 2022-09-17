@@ -14,7 +14,9 @@
     "snapshot": "jest --updateSnapshot",
     "test:e2e": "playwright test",
     "db:auth": "pscale auth login",
-    "db:dev": "pscale connect fe-pizapa develop --port 3309"
+    "db:dev": "pscale connect fe-pizapa develop --port 3309",
+    "prisma:push": "prisma db push",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@chakra-ui/icons": "2.0.9",

@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from 'src/lib/prismaClient'
-import type { RegFormSchema } from 'src/schemas'
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,7 +16,13 @@ export default async function handler(
 
 async function getPosts(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const posts = await prisma.post.findMany()
+    const posts = await prisma.post.findMany({
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+      ],
+    })
     return res.status(200).json(posts)
   } catch (error) {
     res.status(500).json({ error: { message: 'Server Error' } })
@@ -25,10 +30,10 @@ async function getPosts(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createPost(req: NextApiRequest, res: NextApiResponse) {
-  const { name, isAnonymous, title, description } = req.body as RegFormSchema
+  const { name, isAnonymous, title, description } = req.body
   try {
     const newEntry = await prisma.post.create({
-      data: { name, isAnonymous, title, description },
+      data: { name, isAnonymous, title, description, status: 0 },
     })
     return res.status(200).json(newEntry)
   } catch (error) {

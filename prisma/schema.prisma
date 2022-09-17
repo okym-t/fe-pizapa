@@ -18,6 +18,7 @@ model Post {
   isAnonymous Boolean    @default(false)
   title       String
   description String
+  status      Int
   categories  CategoriesOnPosts[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

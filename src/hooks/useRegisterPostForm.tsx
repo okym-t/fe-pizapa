@@ -6,7 +6,7 @@ import { mutate } from 'swr'
 
 export const URL = '/api/post'
 
-export const useRegistrationForm = () => {
+export const useRegisterPostForm = () => {
   const defaultValues = {
     name: '',
     isAnonymous: false,

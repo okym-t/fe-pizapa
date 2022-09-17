@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 
 import dynamic from 'next/dynamic'
-import ErrorBoundary from 'src/components/ErrorBoundary'
+import ErrorBoundary from 'src/components/functional/ErrorBoundary'
 import { Spinner } from '@chakra-ui/react'
 
 const RegistrationForm = dynamic(
-  () => import('../components/RegistrationForm'),
+  () => import('../components/model/post/RegistrationForm'),
   {
     ssr: false,
   }
