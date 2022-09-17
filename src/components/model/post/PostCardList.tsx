@@ -6,10 +6,10 @@ import PostCard from './PostCard'
 
 type Props = {
   searchStr: string
-  isOpenOnly: boolean
+  filterStatus: typeof PostStatus[keyof typeof PostStatus] | null
 }
 
-const PostCardList: FC<Props> = ({ searchStr, isOpenOnly }) => {
+const PostCardList: FC<Props> = ({ searchStr, filterStatus }) => {
   const { data: posts } = usePostList()
   const deferredSearchStr = useDeferredValue(searchStr)
 
@@ -18,7 +18,7 @@ const PostCardList: FC<Props> = ({ searchStr, isOpenOnly }) => {
       posts &&
       posts
         .filter(({ status }) =>
-          isOpenOnly ? status === PostStatus.open : true
+          filterStatus === null ? true : status === filterStatus
         )
         .filter(
           ({ name, title }) =>
@@ -26,7 +26,7 @@ const PostCardList: FC<Props> = ({ searchStr, isOpenOnly }) => {
             title.includes(deferredSearchStr)
         )
         .map((post) => <PostCard key={post.id} post={post} />),
-    [deferredSearchStr, posts, isOpenOnly]
+    [deferredSearchStr, posts, filterStatus]
   )
 
   return <Box>{deferredPostList}</Box>

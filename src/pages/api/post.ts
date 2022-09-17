@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from 'src/lib/prismaClient'
+import { PostStatus } from 'src/types/api.types'
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,7 +34,7 @@ async function createPost(req: NextApiRequest, res: NextApiResponse) {
   const { name, isAnonymous, title, description } = req.body
   try {
     const newEntry = await prisma.post.create({
-      data: { name, isAnonymous, title, description, status: 0 },
+      data: { name, isAnonymous, title, description, status: PostStatus.open },
     })
     return res.status(200).json(newEntry)
   } catch (error) {
