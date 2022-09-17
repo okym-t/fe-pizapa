@@ -13,6 +13,7 @@ import { FC, useMemo, useState } from 'react'
 import { PostStatus } from 'src/types/api.types'
 import PostCardList from '../model/post/PostCardList'
 import SearchInput from '../model/post/SearchInput'
+import NextLink from 'next/link'
 
 const PostsPage: FC = () => {
   const [searchStr, setSearchStr] = useState('')
@@ -42,10 +43,12 @@ const PostsPage: FC = () => {
                 <Tab>Closed</Tab>
               </TabList>
             </Tabs>
-            <Button colorScheme='blue' w={100} size='md'>
-              <AddIcon w={3} h={3} mr={1} />
-              <Text>Add New</Text>
-            </Button>
+            <NextLink href='/posts/new' passHref>
+              <Button colorScheme='blue' w={100} size='md'>
+                <AddIcon w={3} h={3} mr={1} />
+                <Text>Add New</Text>
+              </Button>
+            </NextLink>
           </Stack>
           <PostCardList searchStr={searchStr} filterStatus={filterStatus} />
         </Stack>

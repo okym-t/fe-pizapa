@@ -1,27 +1,22 @@
 import { Suspense } from 'react'
-
-import dynamic from 'next/dynamic'
 import ErrorBoundary from 'src/components/functional/ErrorBoundary'
 import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from '../_app'
 import { Layout } from 'src/layout/layout'
+import RegistrationForm from 'src/components/model/post/RegistrationForm'
 
-const PostPage = dynamic(() => import('src/components/page/PostPage'), {
-  ssr: false,
-})
-
-export const Posts: NextPageWithLayout = () => {
+export const NewPost: NextPageWithLayout = () => {
   return (
     <>
       <ErrorBoundary FallbackComponent={<div>error!!</div>}>
         <Suspense fallback={<PageSpinner />}>
-          <PostPage />
+          <RegistrationForm />
         </Suspense>
       </ErrorBoundary>
     </>
   )
 }
 
-Posts.getLayout = (page) => <Layout>{page}</Layout>
+NewPost.getLayout = (page) => <Layout>{page}</Layout>
 
-export default Posts
+export default NewPost
