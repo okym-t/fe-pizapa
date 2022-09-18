@@ -30,11 +30,14 @@ export const useRegisterPostForm = () => {
 
   const onSubmit: SubmitHandler<RegFormSchema> = async (data) => {
     try {
-      await fetch(URL, {
+      const response = await fetch(URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
+      if (!response.ok) {
+        throw Error()
+      }
       mutate(URL)
       await router.push('/')
       toast({
@@ -51,7 +54,6 @@ export const useRegisterPostForm = () => {
         isClosable: true,
         position: 'top',
       })
-      throw Error()
     }
   }
 
