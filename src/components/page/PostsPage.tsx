@@ -11,18 +11,16 @@ const PostsPage: FC = () => {
   const [handleClickTab, filterStatus] = useFilterPostTab()
 
   return (
-    <Box p={6} bgColor='#f2f5fa' h='calc(100vh - 64px)'>
-      <Center>
-        <Stack spacing={3} maxW='880px' w='full'>
-          <SearchInput setSearchStr={setSearchStr} />
-          <Stack direction='row' justifyContent='space-between'>
-            <FilterStatusTab handleClickTab={handleClickTab} />
-            <AddPostButton />
-          </Stack>
-          <PostCardList searchStr={searchStr} filterStatus={filterStatus} />
+    <Center p={6}>
+      <Stack spacing={3} maxW='880px' w='full'>
+        <SearchInput setSearchStr={setSearchStr} />
+        <Stack direction='row' justifyContent='space-between'>
+          <FilterStatusTab handleClickTab={handleClickTab} />
+          <AddPostButton />
         </Stack>
-      </Center>
-    </Box>
+        <PostCardList searchStr={searchStr} filterStatus={filterStatus} />
+      </Stack>
+    </Center>
   )
 }
 
