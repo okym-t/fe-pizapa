@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import { useRegisterPostForm } from 'src/hooks/useRegisterPostForm'
-import NextLink from 'next/link'
 
 const RegistrationForm: FC = () => {
   const [register, handleSubmit, errors, onSubmit] = useRegisterPostForm()
@@ -43,11 +42,9 @@ const RegistrationForm: FC = () => {
           <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
 
-        <NextLink href='/' passHref>
-          <Button w='100%' colorScheme='blue' variant='solid' type='submit'>
-            登録
-          </Button>
-        </NextLink>
+        <Button w='100%' colorScheme='blue' variant='solid' type='submit'>
+          登録
+        </Button>
       </Stack>
     </form>
   )
