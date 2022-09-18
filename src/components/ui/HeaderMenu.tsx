@@ -21,12 +21,12 @@ const HeaderMenu = memo(() => {
       </Flex>
 
       <Stack direction={'row'} flexGrow={1} spacing={4}>
-        <NextLink href='/' passHref>
+        <NextLink href='/posts' passHref>
           <Text as='a' fontWeight='bold'>
             ネタ
           </Text>
         </NextLink>
-        <NextLink href='/' passHref>
+        <NextLink href='/notification' passHref>
           <Text as='a' fontWeight='bold'>
             通知
           </Text>
