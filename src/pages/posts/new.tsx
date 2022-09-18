@@ -3,14 +3,14 @@ import ErrorBoundary from 'src/components/functional/ErrorBoundary'
 import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from '../_app'
 import { Layout } from 'src/layout/layout'
-import RegistrationForm from 'src/components/model/post/RegistrationForm'
+import PostRegistration from 'src/components/page/PostRegistration'
 
 export const NewPost: NextPageWithLayout = () => {
   return (
     <>
       <ErrorBoundary FallbackComponent={<div>error!!</div>}>
         <Suspense fallback={<PageSpinner />}>
-          <RegistrationForm />
+          <PostRegistration />
         </Suspense>
       </ErrorBoundary>
     </>
