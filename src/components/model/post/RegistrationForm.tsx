@@ -6,6 +6,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Stack,
   Textarea,
 } from '@chakra-ui/react'
 import { FC } from 'react'
@@ -16,38 +17,36 @@ const RegistrationForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={errors.name !== undefined} isRequired>
-        <FormLabel htmlFor='username' mt={2}>
-          名前
-        </FormLabel>
-        <Input size='md' {...register('name')} />
-        <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-      </FormControl>
-      <Box mt={2}>
-        <FormControl isInvalid={errors.isAnonymous !== undefined}>
-          <Checkbox {...register('isAnonymous')}>匿名</Checkbox>
+      <Stack spacing={5}>
+        <FormControl isInvalid={errors.name !== undefined} isRequired>
+          <FormLabel htmlFor='name'>名前</FormLabel>
+          <Input bgColor='white' {...register('name')} />
+          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
-      </Box>
-      <FormControl isInvalid={errors.title !== undefined} isRequired>
-        <FormLabel htmlFor='title' mt={4}>
-          タイトル
-        </FormLabel>
-        <Input size='md' maxLength={100} {...register('title')} />
-        <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
-      </FormControl>
-      <FormControl isInvalid={errors.description !== undefined} isRequired>
-        <FormLabel htmlFor='description' mt={4}>
-          内容
-        </FormLabel>
-        <Textarea size='md' maxLength={1000} {...register('description')} />
-        <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
-      </FormControl>
+        <FormControl>
+          <Checkbox {...register('isAnonymous')}>匿名で投稿する</Checkbox>
+        </FormControl>
+        <FormControl isInvalid={errors.title !== undefined} isRequired>
+          <FormLabel htmlFor='title'>タイトル</FormLabel>
+          <Input bgColor='white' maxLength={100} {...register('title')} />
+          <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.description !== undefined} isRequired>
+          <FormLabel htmlFor='description'>内容</FormLabel>
+          <Textarea
+            rows={10}
+            bgColor='white'
+            maxLength={1000}
+            placeholder='感想とかリンクとか'
+            {...register('description')}
+          />
+          <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+        </FormControl>
 
-      <Box mt={2}>
         <Button w='100%' colorScheme='blue' variant='solid' type='submit'>
           登録
         </Button>
-      </Box>
+      </Stack>
     </form>
   )
 }

@@ -1,20 +1,10 @@
 import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import { extendTheme } from '@chakra-ui/react'
 import { SWRConfig } from 'swr'
 import { ErrorResponse } from 'src/types/api.types'
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
-
-const colors = {
-  brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
-  },
-}
-
-const theme = extendTheme({ colors })
+import { theme } from 'src/styles/theme'
 
 const fetcher = async (url: string) => {
   const res = await fetch(url)
