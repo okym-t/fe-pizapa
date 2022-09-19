@@ -8,7 +8,7 @@ type ConvertPostCardText = ({
 }: {
   createdAt: Date
   updatedAt: Date
-  status: number
+  status: number | null
 }) => readonly [string, 'open' | 'closed', string]
 
 export const useConvertPostCardText: ConvertPostCardText = ({

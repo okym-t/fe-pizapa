@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react'
-import { FC, useDeferredValue, useMemo } from 'react'
+import { FC } from 'react'
+import { useFilterPostList } from 'src/hooks/useFilterPostList'
 import { usePostList } from 'src/hooks/usePostList'
 import { PostStatus } from 'src/types/api.types'
 import PostCard from './PostCard'
@@ -11,25 +12,15 @@ type Props = {
 
 const PostCardList: FC<Props> = ({ searchStr, filterStatus }) => {
   const { data: posts } = usePostList()
-  const deferredSearchStr = useDeferredValue(searchStr)
+  const [postList] = useFilterPostList(posts, searchStr, filterStatus)
 
-  const deferredPostList = useMemo(
-    () =>
-      posts &&
-      posts
-        .filter(({ status }) =>
-          filterStatus === null ? true : status === filterStatus
-        )
-        .filter(
-          ({ name, title }) =>
-            name.includes(deferredSearchStr) ||
-            title.includes(deferredSearchStr)
-        )
-        .map((post) => <PostCard key={post.id} post={post} />),
-    [deferredSearchStr, posts, filterStatus]
+  return (
+    <Box>
+      {postList.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </Box>
   )
-
-  return <Box>{deferredPostList}</Box>
 }
 
 export default PostCardList
