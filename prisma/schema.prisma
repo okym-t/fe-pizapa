@@ -18,25 +18,26 @@ model Post {
   isAnonymous Boolean    @default(false)
   title       String
   description String
-  status      Int
-  categories  CategoriesOnPosts[]
+  status      Int?        @default(1)
+  tags  TagsOnPosts[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
 
-model Category {
+model Tag {
   id    Int    @id @default(autoincrement())
-  name  String
-  posts CategoriesOnPosts[]
+  name  String @unique
+  posts TagsOnPosts[]
+  createdAt   DateTime   @default(now())
 }
 
-model CategoriesOnPosts {
+model TagsOnPosts {
   post       Post     @relation(fields: [postId], references: [id])
   postId     Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  tag   Tag @relation(fields: [tagId], references: [id])
+  tagId Int
   assignedAt DateTime @default(now())
   assignedBy String
 
-  @@id([postId, categoryId])
+  @@id([postId, tagId])
 }

@@ -10,15 +10,16 @@ import {
   Link,
   Badge,
 } from '@chakra-ui/react'
-import { Post } from '.prisma/client'
 import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
+import { PostWithTags } from 'src/hooks/usePostList'
+import TagList from './TagList'
 
 type Props = {
-  post: Post
+  post: PostWithTags
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { name, isAnonymous, title, status, createdAt, updatedAt } = post
+  const { name, isAnonymous, title, status, createdAt, updatedAt, tags } = post
 
   const [updatedText, statusText, statusColor] = useConvertPostCardText({
     createdAt,
@@ -70,38 +71,7 @@ const PostCard: FC<Props> = ({ post }) => {
                 {updatedText}
               </Text>
             </Center>
-            <Stack direction={'row'}>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue('gray.100', 'gray.800')}
-                fontWeight={'400'}
-                textTransform={'none'}
-                rounded='lg'
-              >
-                #<Link>Next.js</Link>
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue('gray.100', 'gray.800')}
-                fontWeight={'400'}
-                textTransform={'none'}
-                rounded='lg'
-              >
-                #<Link>Prisma</Link>
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue('gray.100', 'gray.800')}
-                fontWeight={'400'}
-                textTransform={'none'}
-                rounded='lg'
-              >
-                #<Link>PlanetScale</Link>
-              </Badge>
-            </Stack>
+            <TagList tags={tags} />
           </Stack>
         </Stack>
       </Stack>

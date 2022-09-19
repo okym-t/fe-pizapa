@@ -10,13 +10,15 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import { useRegisterPostForm } from 'src/hooks/useRegisterPostForm'
+import AddTagForm from './AddTagForm'
 
 const RegistrationForm: FC = () => {
-  const [register, handleSubmit, errors, onSubmit] = useRegisterPostForm()
+  const [register, handleSubmit, errors, onSubmit, tags, updateTags] =
+    useRegisterPostForm()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={5}>
+      <Stack spacing={3}>
         <FormControl isInvalid={errors.name !== undefined} isRequired>
           <FormLabel htmlFor='name'>名前</FormLabel>
           <Input bgColor='white' {...register('name')} />
@@ -30,6 +32,7 @@ const RegistrationForm: FC = () => {
           <Input bgColor='white' maxLength={100} {...register('title')} />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
+        <AddTagForm tags={tags} updateTags={updateTags} />
         <FormControl isInvalid={errors.description !== undefined} isRequired>
           <FormLabel htmlFor='description'>内容</FormLabel>
           <Textarea

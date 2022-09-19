@@ -5,8 +5,9 @@ import { regFormSchema } from 'src/schemas'
 import { mutate } from 'swr'
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
+import { useState } from 'react'
 
-export const URL = '/api/post'
+export const POST_URL = '/api/post'
 
 export const useRegisterPostForm = () => {
   const router = useRouter()
@@ -28,15 +29,26 @@ export const useRegisterPostForm = () => {
     resolver: zodResolver(regFormSchema),
   })
 
+  const [tags, setTags] = useState<string[]>([])
+  const updateTags = (tags: string[]) => {
+    setTags(tags)
+  }
+
   const onSubmit: SubmitHandler<RegFormSchema> = async (data) => {
     try {
-      await fetch(URL, {
+      const postResponse = await fetch(POST_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          tags: tags.map((tag) => ({ name: tag })),
+        }),
       })
+      if (!postResponse.ok) {
+        throw Error()
+      }
       mutate(URL)
-      await router.push('/')
+      await router.push('/posts')
       toast({
         title: '追加しました！',
         status: 'success',
@@ -51,9 +63,8 @@ export const useRegisterPostForm = () => {
         isClosable: true,
         position: 'top',
       })
-      throw Error()
     }
   }
 
-  return [register, handleSubmit, errors, onSubmit] as const
+  return [register, handleSubmit, errors, onSubmit, tags, updateTags] as const
 }
