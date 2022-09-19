@@ -13,6 +13,7 @@ import {
 import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
 import { PostWithTags } from 'src/hooks/usePostList'
 import TagList from './TagList'
+import { isMobile } from 'react-device-detect'
 
 type Props = {
   post: PostWithTags
@@ -71,7 +72,7 @@ const PostCard: FC<Props> = ({ post }) => {
                 {updatedText}
               </Text>
             </Center>
-            <TagList tags={tags} />
+            {!isMobile && <TagList tags={tags} />}
           </Stack>
         </Stack>
       </Stack>
