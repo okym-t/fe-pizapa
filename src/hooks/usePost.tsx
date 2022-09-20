@@ -16,3 +16,13 @@ export interface Tag {
 export const usePostList = () => {
   return useSWR<PostWithTags[]>('/api/post')
 }
+
+export const usePostById = ({
+  id,
+  requestCondition,
+}: {
+  id: string
+  requestCondition: boolean
+}) => {
+  return useSWR(requestCondition && `/api/post/${id}`)
+}
