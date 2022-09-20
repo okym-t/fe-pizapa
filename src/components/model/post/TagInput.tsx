@@ -86,7 +86,7 @@ const TagInput: FC<Props> = ({ name, tags, updateTags }) => {
             ref={initialFocusRef as any}
             name={name}
             bgColor='white'
-            placeholder='Enterでタグを追加'
+            placeholder='Enterで新規タグを追加'
             value={inputValue}
             onKeyDown={handleKeyDown}
             onChange={handleChange}
