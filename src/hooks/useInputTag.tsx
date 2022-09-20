@@ -5,9 +5,7 @@ import {
   KeyboardEvent,
   useRef,
   useState,
-  useMemo,
 } from 'react'
-import useSWR from 'swr'
 
 export const useInputTag = (
   name: string,
@@ -58,16 +56,6 @@ export const useInputTag = (
     [name, tags, updateTags]
   )
 
-  const { data } = useSWR('/api/tag')
-
-  const tagsFilteredByText = useMemo(() => {
-    if (!data) return []
-    return data.filter(
-      (tag: { id: number; name: string }) =>
-        tag.name.includes(inputValue) && !tags.includes(tag.name)
-    )
-  }, [data, inputValue, tags])
-
   return [
     initialFocusRef,
     handleRemoveTag,
@@ -75,6 +63,5 @@ export const useInputTag = (
     handleKeyDown,
     handleClickBadge,
     inputValue,
-    tagsFilteredByText,
   ] as const
 }

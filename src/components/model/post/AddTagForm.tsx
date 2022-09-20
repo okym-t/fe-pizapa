@@ -19,9 +19,7 @@ const AddTagForm: FC<Props> = ({ tags, updateTags }) => {
       {isInputVisible ? (
         <FormControl>
           <FormLabel htmlFor='tag'>タグ</FormLabel>
-          <Suspense>
-            <TagInput name='tag' tags={tags} updateTags={updateTags} />
-          </Suspense>
+          <TagInput name='tag' tags={tags} updateTags={updateTags} />
         </FormControl>
       ) : (
         <Flex color='blue.500' fontWeight={600} align='center'>

@@ -13,8 +13,9 @@ import {
   Portal,
   Flex,
 } from '@chakra-ui/react'
-import { FC } from 'react'
+import { FC, Suspense, useMemo } from 'react'
 import { useInputTag } from 'src/hooks/useInputTag'
+import useSWR from 'swr'
 
 type Props = {
   name: string
@@ -30,8 +31,35 @@ const TagInput: FC<Props> = ({ name, tags, updateTags }) => {
     handleKeyDown,
     handleClickBadge,
     inputValue,
-    tagsFilteredByText,
   ] = useInputTag(name, tags, updateTags)
+
+  const ExistingTagList = () => {
+    const { data } = useSWR('/api/tag')
+    const tagsFilteredByText = useMemo(() => {
+      if (!data) return []
+      return data.filter(
+        (tag: { id: number; name: string }) =>
+          tag.name.includes(inputValue) && !tags.includes(tag.name)
+      )
+    }, [data])
+
+    return (
+      <Flex flexDirection='row' flexWrap='wrap'>
+        {tagsFilteredByText.map((tag: { id: number; name: string }) => (
+          <Button
+            key={tag.id}
+            size='xs'
+            colorScheme='gray'
+            variant='solid'
+            onClick={() => handleClickBadge(tag)}
+            m={1}
+          >
+            #{tag.name}
+          </Button>
+        ))}
+      </Flex>
+    )
+  }
 
   return (
     <Stack p={4} border='solid' borderColor='gray.200' rounded={10}>
@@ -68,20 +96,9 @@ const TagInput: FC<Props> = ({ name, tags, updateTags }) => {
           <PopoverContent>
             <PopoverCloseButton />
             <PopoverBody minH={50}>
-              <Flex flexDirection='row' flexWrap='wrap'>
-                {tagsFilteredByText.map((tag: { id: number; name: string }) => (
-                  <Button
-                    key={tag.id}
-                    size='xs'
-                    colorScheme='gray'
-                    variant='solid'
-                    onClick={() => handleClickBadge(tag)}
-                    m={1}
-                  >
-                    #{tag.name}
-                  </Button>
-                ))}
-              </Flex>
+              <Suspense>
+                <ExistingTagList />
+              </Suspense>
             </PopoverBody>
           </PopoverContent>
         </Portal>
