@@ -1,16 +1,20 @@
 import { Box, Center } from '@chakra-ui/react'
 import { FC } from 'react'
-import RegistrationForm from '../model/post/RegistrationForm'
 import { useRouter } from 'next/router'
+import { usePostById } from 'src/hooks/usePost'
 
 const PostRegistration: FC = () => {
   const router = useRouter()
   const { postId } = router.query
+  const { data: post } = usePostById({
+    id: String(postId),
+    requestCondition: router.isReady,
+  })
 
   return (
     <Center p={6}>
       <Box maxW='600px' w='full'>
-        <>ID: {postId}</>
+        <>{JSON.stringify(post)}</>
       </Box>
     </Center>
   )

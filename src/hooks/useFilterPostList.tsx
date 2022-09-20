@@ -1,6 +1,6 @@
 import { useDeferredValue, useMemo } from 'react'
 import { PostStatus } from 'src/types/api.types'
-import { PostWithTags, Tag } from './usePostList'
+import { PostWithTags, Tag } from './usePost'
 
 export const useFilterPostList = (
   posts: PostWithTags[] | undefined,

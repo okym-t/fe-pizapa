@@ -11,7 +11,7 @@ import {
   Badge,
 } from '@chakra-ui/react'
 import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
-import { PostWithTags } from 'src/hooks/usePostList'
+import { PostWithTags } from 'src/hooks/usePost'
 import TagList from './TagList'
 import { isMobile } from 'react-device-detect'
 import NextLink from 'next/link'

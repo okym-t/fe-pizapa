@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { FC } from 'react'
 import { useFilterPostList } from 'src/hooks/useFilterPostList'
-import { usePostList } from 'src/hooks/usePostList'
+import { usePostList } from 'src/hooks/usePost'
 import { PostStatus } from 'src/types/api.types'
 import PostCard from './PostCard'
 
