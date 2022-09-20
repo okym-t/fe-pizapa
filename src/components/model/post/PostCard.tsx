@@ -14,13 +14,15 @@ import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
 import { PostWithTags } from 'src/hooks/usePostList'
 import TagList from './TagList'
 import { isMobile } from 'react-device-detect'
+import NextLink from 'next/link'
 
 type Props = {
   post: PostWithTags
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { name, isAnonymous, title, status, createdAt, updatedAt, tags } = post
+  const { id, name, isAnonymous, title, status, createdAt, updatedAt, tags } =
+    post
 
   const [updatedText, statusText, statusColor] = useConvertPostCardText({
     createdAt,
@@ -43,7 +45,9 @@ const PostCard: FC<Props> = ({ post }) => {
         />
         <Stack direction={'column'}>
           <Heading fontSize={'md'} fontWeight={'800'}>
-            <Link>{title}</Link>
+            <NextLink href={`/posts/${id}`} passHref>
+              <Link>{title}</Link>
+            </NextLink>
           </Heading>
           <Stack direction={'row'}>
             <Badge
