@@ -23,7 +23,7 @@ export const useRegisterPostForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegFormSchema>({
     defaultValues,
     resolver: zodResolver(regFormSchema),
@@ -66,5 +66,13 @@ export const useRegisterPostForm = () => {
     }
   }
 
-  return [register, handleSubmit, errors, onSubmit, tags, updateTags] as const
+  return [
+    register,
+    handleSubmit,
+    errors,
+    onSubmit,
+    isSubmitting,
+    tags,
+    updateTags,
+  ] as const
 }

@@ -16,7 +16,7 @@ import { FC } from 'react'
 import { useRouter } from 'next/router'
 import { usePostById } from 'src/hooks/usePost'
 
-const PostRegistration: FC = () => {
+const PostEdit: FC = () => {
   const router = useRouter()
   const toast = useToast()
 
@@ -91,4 +91,4 @@ const PostRegistration: FC = () => {
   )
 }
 
-export default PostRegistration
+export default PostEdit
