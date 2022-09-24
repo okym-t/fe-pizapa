@@ -12,7 +12,7 @@ import { FC } from 'react'
 import { useRegisterPostForm } from 'src/hooks/useRegisterPostForm'
 import AddTagForm from './AddTagForm'
 
-const RegistrationForm: FC = () => {
+const PostRegistration: FC = () => {
   const [
     register,
     handleSubmit,
@@ -72,4 +72,4 @@ const RegistrationForm: FC = () => {
   )
 }
 
-export default RegistrationForm
+export default PostRegistration

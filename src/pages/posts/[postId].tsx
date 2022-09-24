@@ -6,22 +6,22 @@ import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from '../_app'
 import { Layout } from 'src/layout/layout'
 
-const PostEdit = dynamic(() => import('src/components/page/PostEdit'), {
+const PostsEdit = dynamic(() => import('src/components/page/PostsEdit'), {
   ssr: false,
 })
 
-export const Posts: NextPageWithLayout = () => {
+export const Page: NextPageWithLayout = () => {
   return (
     <>
       <ErrorBoundary FallbackComponent={<div>error!!</div>}>
         <Suspense fallback={<PageSpinner />}>
-          <PostEdit />
+          <PostsEdit />
         </Suspense>
       </ErrorBoundary>
     </>
   )
 }
 
-Posts.getLayout = (page) => <Layout>{page}</Layout>
+Page.getLayout = (page) => <Layout>{page}</Layout>
 
-export default Posts
+export default Page

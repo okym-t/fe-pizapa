@@ -16,7 +16,7 @@ import { FC } from 'react'
 import { useRouter } from 'next/router'
 import { usePostById } from 'src/hooks/usePost'
 
-const PostEdit: FC = () => {
+const PostsEdit: FC = () => {
   const router = useRouter()
   const toast = useToast()
 
@@ -27,10 +27,6 @@ const PostEdit: FC = () => {
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const handleClickDeleteButton = async () => {
-    onOpen()
-  }
 
   const handleClickDeleteConfirmButton = async () => {
     try {
@@ -63,7 +59,7 @@ const PostEdit: FC = () => {
       <Box maxW='600px' w='full'>
         <>{JSON.stringify(post)}</>
       </Box>
-      <Button size='md' colorScheme='red' onClick={handleClickDeleteButton}>
+      <Button size='md' colorScheme='red' onClick={onOpen}>
         削除
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -72,7 +68,6 @@ const PostEdit: FC = () => {
           <ModalHeader>削除</ModalHeader>
           <ModalCloseButton />
           <ModalBody>削除しますか？</ModalBody>
-
           <ModalFooter>
             <Button
               colorScheme='red'
@@ -91,4 +86,4 @@ const PostEdit: FC = () => {
   )
 }
 
-export default PostEdit
+export default PostsEdit

@@ -1,4 +1,4 @@
-import { Box, Stack, Center } from '@chakra-ui/react'
+import { Stack, Center } from '@chakra-ui/react'
 import { FC, useState } from 'react'
 import PostCardList from '../model/post/PostCardList'
 import SearchInput from '../model/post/SearchInput'
@@ -6,7 +6,7 @@ import { useFilterPostTab } from 'src/hooks/useFilterPostTab'
 import FilterStatusTab from '../model/post/FilterStatusTab'
 import AddPostButton from '../model/post/AddPostButton'
 
-const PostsPage: FC = () => {
+const Posts: FC = () => {
   const [searchStr, setSearchStr] = useState('')
   const [handleClickTab, filterStatus] = useFilterPostTab()
 
@@ -24,4 +24,4 @@ const PostsPage: FC = () => {
   )
 }
 
-export default PostsPage
+export default Posts
