@@ -154,7 +154,7 @@ const PostsEdit: FC<Props> = ({ postId }) => {
             tags={tags}
             updateTags={updateTags}
           />
-          <Box shadow='md' borderRadius='10px' w='720px' bg='white' p={4}>
+          <Box shadow='md' borderRadius='10px' maxW='720px' bg='white' p={4}>
             <Textarea
               rows={10}
               variant='unstyled'
