@@ -62,8 +62,8 @@ const TagInput: FC<Props> = ({ name, tags, updateTags }) => {
   }
 
   return (
-    <Stack p={4} border='solid' borderColor='gray.200' rounded={10}>
-      <Stack direction='row'>
+    <>
+      <Flex flexDirection='row' flexWrap='wrap' gap={2}>
         {tags.map((tag) => (
           <Tag
             size='md'
@@ -76,7 +76,7 @@ const TagInput: FC<Props> = ({ name, tags, updateTags }) => {
             <TagCloseButton onClick={handleRemoveTag(tag)} />
           </Tag>
         ))}
-      </Stack>
+      </Flex>
       <Popover
         placement='bottom-start'
         initialFocusRef={initialFocusRef as any}
@@ -103,7 +103,7 @@ const TagInput: FC<Props> = ({ name, tags, updateTags }) => {
           </PopoverContent>
         </Portal>
       </Popover>
-    </Stack>
+    </>
   )
 }
 

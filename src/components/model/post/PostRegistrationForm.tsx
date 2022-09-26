@@ -44,7 +44,12 @@ const PostRegistration: FC = () => {
           />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
-        <AddTagForm tags={tags} updateTags={updateTags} />
+        <AddTagForm
+          actionType='create'
+          isLabelVisible
+          tags={tags}
+          updateTags={updateTags}
+        />
         <FormControl isInvalid={errors.description !== undefined}>
           <FormLabel htmlFor='description'>内容</FormLabel>
           <Textarea

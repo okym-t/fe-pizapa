@@ -1,18 +1,17 @@
 import { Badge, Stack } from '@chakra-ui/react'
 import { FC } from 'react'
+import { Tag } from 'src/hooks/usePost'
 
 type Props = {
-  tags: {
-    tag: { id: number; name: string }
-  }[]
+  tags: Tag[]
 }
 
 const TagList: FC<Props> = ({ tags }) => {
   return (
     <Stack direction={'row'}>
-      {tags.map(({ tag }) => (
+      {tags.map(({ id, name }) => (
         <Badge
-          key={tag.id}
+          key={id}
           px={2}
           py={1}
           bg='gray.100'
@@ -20,7 +19,7 @@ const TagList: FC<Props> = ({ tags }) => {
           textTransform={'none'}
           rounded='lg'
         >
-          #{tag.name}
+          #{name}
         </Badge>
       ))}
     </Stack>
