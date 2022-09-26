@@ -29,6 +29,7 @@ import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
 import AddTagForm from '../model/post/AddTagForm'
 import { CheckCircleIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import { PostStatus } from 'src/types/api.types'
+import { isMobile } from 'react-device-detect'
 
 type Props = {
   postId: string
@@ -117,7 +118,7 @@ const PostsEdit: FC<Props> = ({ postId }) => {
             >
               {isAnonymous ? 'Anonymous' : name}
             </Text>
-            <Text color='gray.600'>{updatedText}</Text>
+            {!isMobile && <Text color='gray.600'>{updatedText}</Text>}
             <Tooltip
               label={
                 status === PostStatus.open ? 'クローズする' : '再オープンする'
