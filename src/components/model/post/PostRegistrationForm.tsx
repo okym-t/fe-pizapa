@@ -12,7 +12,7 @@ import { FC } from 'react'
 import { useRegisterPostForm } from 'src/hooks/useRegisterPostForm'
 import AddTagForm from './AddTagForm'
 
-const RegistrationForm: FC = () => {
+const PostRegistration: FC = () => {
   const [
     register,
     handleSubmit,
@@ -44,7 +44,12 @@ const RegistrationForm: FC = () => {
           />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
-        <AddTagForm tags={tags} updateTags={updateTags} />
+        <AddTagForm
+          actionType='create'
+          isLabelVisible
+          tags={tags}
+          updateTags={updateTags}
+        />
         <FormControl isInvalid={errors.description !== undefined}>
           <FormLabel htmlFor='description'>内容</FormLabel>
           <Textarea
@@ -72,4 +77,4 @@ const RegistrationForm: FC = () => {
   )
 }
 
-export default RegistrationForm
+export default PostRegistration

@@ -45,7 +45,11 @@ async function getPosts(req: NextApiRequest, res: NextApiResponse) {
         },
       ],
     })
-    return res.status(200).json(posts)
+    const response = posts.map((post) => ({
+      ...post,
+      tags: post.tags.map(({ tag }) => ({ id: tag.id, name: tag.name })),
+    }))
+    return res.status(200).json(response)
   } catch (error) {
     res.status(500).json({ error: { message: 'Server Error' } })
   }

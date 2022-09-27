@@ -37,8 +37,6 @@ const filterBySearchStr = (
   return (
     name.includes(searchStr) ||
     title.includes(searchStr) ||
-    tags
-      .map(({ tag }) => tag.name)
-      .some((tagName) => tagName.includes(searchStr))
+    tags.map(({ name }) => name).some((tagName) => tagName.includes(searchStr))
   )
 }

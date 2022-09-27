@@ -3,20 +3,20 @@ import ErrorBoundary from 'src/components/functional/ErrorBoundary'
 import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from '../_app'
 import { Layout } from 'src/layout/layout'
-import PostRegistration from 'src/components/page/PostRegistration'
+import PostsNew from 'src/components/page/PostsNew'
 
-export const NewPost: NextPageWithLayout = () => {
+export const Page: NextPageWithLayout = () => {
   return (
     <>
       <ErrorBoundary FallbackComponent={<div>error!!</div>}>
         <Suspense fallback={<PageSpinner />}>
-          <PostRegistration />
+          <PostsNew />
         </Suspense>
       </ErrorBoundary>
     </>
   )
 }
 
-NewPost.getLayout = (page) => <Layout>{page}</Layout>
+Page.getLayout = (page) => <Layout>{page}</Layout>
 
-export default NewPost
+export default Page

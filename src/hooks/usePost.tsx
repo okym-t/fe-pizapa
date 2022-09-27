@@ -6,23 +6,14 @@ export type PostWithTags = {
 } & Post
 
 export interface Tag {
-  assignedBy: string
-  tag: {
-    id: number
-    name: string
-  }
+  id: number
+  name: string
 }
 
 export const usePostList = () => {
   return useSWR<PostWithTags[]>('/api/post')
 }
 
-export const usePostById = ({
-  id,
-  requestCondition,
-}: {
-  id: string
-  requestCondition: boolean
-}) => {
-  return useSWR(requestCondition && `/api/post/${id}`)
+export const usePostById = ({ id }: { id: string }) => {
+  return useSWR<PostWithTags>(`/api/post/${id}`)
 }
