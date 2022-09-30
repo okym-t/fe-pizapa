@@ -33,7 +33,7 @@ const HeaderMenu = memo(() => {
         </NextLink>
       </Stack>
 
-      <Link href='https://chakra-ui.com' isExternal>
+      <Link href='https://gitlab.com/gitlab-org/gitlab' isExternal>
         <Image
           borderRadius='full'
           boxSize='40px'

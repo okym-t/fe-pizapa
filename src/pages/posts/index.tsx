@@ -2,9 +2,9 @@ import { Suspense } from 'react'
 
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'src/components/functional/ErrorBoundary'
-import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from '../_app'
 import { Layout } from 'src/layout/layout'
+import PageSpinner from 'src/components/ui/PageSpinner'
 
 const Posts = dynamic(() => import('src/components/page/Posts'), {
   ssr: false,

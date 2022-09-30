@@ -18,7 +18,7 @@ model Post {
   isAnonymous Boolean    @default(false)
   title       String
   description String
-  status      Int?        @default(1)
+  status      Int        @default(1)
   tags  TagsOnPosts[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

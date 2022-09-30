@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 export const POST_URL = '/api/post'
 
-export const useRegisterPostForm = () => {
+export const useRegisterForm = () => {
   const router = useRouter()
   const toast = useToast()
 

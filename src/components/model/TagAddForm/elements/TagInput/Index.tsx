@@ -3,7 +3,6 @@ import {
   Tag,
   TagCloseButton,
   TagLabel,
-  Stack,
   Popover,
   PopoverTrigger,
   Button,
@@ -14,7 +13,7 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import { FC, Suspense, useMemo } from 'react'
-import { useInputTag } from 'src/hooks/useInputTag'
+import { useInputTag } from 'src/components/model/TagAddForm/elements/TagInput/hooks/useInputTag'
 import useSWR from 'swr'
 
 type Props = {

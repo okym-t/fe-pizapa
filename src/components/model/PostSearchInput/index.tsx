@@ -1,15 +1,14 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { Search2Icon } from '@chakra-ui/icons'
 import { FC, SyntheticEvent } from 'react'
+import { usePostListFilterContext } from 'src/components/page/Posts/PostFilterContext'
 
-type Props = {
-  setSearchStr: (searchStr: string) => void
-}
+const PostSearchInput: FC = () => {
+  const { updateSearchStr } = usePostListFilterContext()
 
-const SearchInput: FC<Props> = ({ setSearchStr }) => {
   const handleSearch = (event: SyntheticEvent) => {
     const target = event.target as HTMLInputElement
-    setSearchStr(target.value)
+    updateSearchStr(target.value)
   }
 
   return (
@@ -22,4 +21,4 @@ const SearchInput: FC<Props> = ({ setSearchStr }) => {
   )
 }
 
-export default SearchInput
+export default PostSearchInput

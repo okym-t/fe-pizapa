@@ -25,17 +25,17 @@ import {
 import { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import { PostWithTags, usePostById } from 'src/hooks/usePost'
-import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
-import AddTagForm from '../model/post/AddTagForm'
+import AddTagForm from '../../model/TagAddForm'
 import { CheckCircleIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import { PostStatus } from 'src/types/api.types'
 import { isMobile } from 'react-device-detect'
+import { useConvertPostCardText } from '../../model/PostCard/hooks/useConvertPostCardText'
 
 type Props = {
   postId: string
 }
 
-const PostsEdit: FC<Props> = ({ postId }) => {
+const PostEdit: FC<Props> = ({ postId }) => {
   const router = useRouter()
   const toast = useToast()
   const { data: post } = usePostById({
@@ -191,4 +191,4 @@ const PostsEdit: FC<Props> = ({ postId }) => {
   )
 }
 
-export default PostsEdit
+export default PostEdit

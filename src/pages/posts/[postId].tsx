@@ -2,12 +2,12 @@ import { Suspense } from 'react'
 
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'src/components/functional/ErrorBoundary'
-import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from '../_app'
 import { Layout } from 'src/layout/layout'
 import { useRouter } from 'next/router'
+import PageSpinner from 'src/components/ui/PageSpinner'
 
-const PostsEdit = dynamic(() => import('src/components/page/PostsEdit'), {
+const PostEdit = dynamic(() => import('src/components/page/PostEdit'), {
   ssr: false,
 })
 
@@ -20,7 +20,7 @@ export const Page: NextPageWithLayout = () => {
       <ErrorBoundary FallbackComponent={<div>error!!</div>}>
         <Suspense fallback={<PageSpinner />}>
           {router.isReady ? (
-            <PostsEdit postId={String(postId)} />
+            <PostEdit postId={String(postId)} />
           ) : (
             <PageSpinner />
           )}
