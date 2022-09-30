@@ -1,8 +1,8 @@
 import { Box, Center } from '@chakra-ui/react'
 import { FC } from 'react'
-import PostRegisterForm from '../model/PostRegisterForm'
+import PostRegisterForm from '../../model/PostRegisterForm'
 
-const PostsNew: FC = () => {
+const PostNew: FC = () => {
   return (
     <Center p={6}>
       <Box maxW='600px' w='full'>
@@ -12,4 +12,4 @@ const PostsNew: FC = () => {
   )
 }
 
-export default PostsNew
+export default PostNew
