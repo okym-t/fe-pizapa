@@ -3,13 +3,15 @@ import { createContext, FC, ReactNode, useContext, useState } from 'react'
 type PostListFilter = {
   searchStr: string
   updateSearchStr: (value: string) => void
-  // status: number | null
+  status: number
+  changeStatus: (tabIndex: number) => void
 }
 
 const defaultFilter: PostListFilter = {
   searchStr: '',
   updateSearchStr: () => void 0,
-  // status: null,
+  status: 0,
+  changeStatus: () => void 0,
 } as const
 
 const PostListFilterContext = createContext(defaultFilter)
@@ -26,9 +28,16 @@ export const PostListFilterProvider: FC<Props> = ({ children }) => {
     setSearchStr(value)
   }
 
+  const [status, setStatus] = useState(0)
+  const changeStatus = (tabIndex: number) => {
+    setStatus(tabIndex)
+  }
+
   const value = {
     searchStr,
     updateSearchStr,
+    status,
+    changeStatus,
   }
 
   return (

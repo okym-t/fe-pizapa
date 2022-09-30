@@ -2,17 +2,11 @@ import { Box } from '@chakra-ui/react'
 import { FC } from 'react'
 import { useFilterPostList } from 'src/components/model/PostCardList/hooks/useFilterPostList'
 import { usePostList } from 'src/hooks/usePost'
-import { PostStatus } from 'src/types/api.types'
 import PostCard from '../PostCard'
 
-type Props = {
-  filterStatus: typeof PostStatus[keyof typeof PostStatus] | null
-}
-
-const PostCardList: FC<Props> = ({ filterStatus }) => {
+const PostCardList: FC = () => {
   const { data: posts } = usePostList()
-
-  const [postList] = useFilterPostList(posts, filterStatus)
+  const [postList] = useFilterPostList(posts)
 
   return (
     <Box>

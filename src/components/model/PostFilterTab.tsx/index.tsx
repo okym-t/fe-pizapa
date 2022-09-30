@@ -1,13 +1,12 @@
 import { Tabs, Tab, TabList } from '@chakra-ui/react'
 import { FC } from 'react'
+import { usePostListFilterContext } from 'src/components/page/Posts/PostFilterContext'
 
-type Props = {
-  handleClickTab: (index: number) => void
-}
+const PostFilterTab: FC = () => {
+  const { changeStatus } = usePostListFilterContext()
 
-const PostFilterTab: FC<Props> = ({ handleClickTab }) => {
   return (
-    <Tabs onChange={handleClickTab}>
+    <Tabs onChange={changeStatus}>
       <TabList>
         <Tab>All</Tab>
         <Tab>Open</Tab>
