@@ -1,12 +1,14 @@
 import { useDeferredValue, useMemo } from 'react'
+import { usePostListFilterContext } from 'src/components/page/Posts/PostFilterContext'
 import { PostStatus } from 'src/types/api.types'
-import { PostWithTags, Tag } from './usePost'
+import { PostWithTags, Tag } from '../../../../hooks/usePost'
 
 export const useFilterPostList = (
   posts: PostWithTags[] | undefined,
-  searchStr: string,
   filterStatus: typeof PostStatus[keyof typeof PostStatus] | null
 ) => {
+  const { searchStr } = usePostListFilterContext()
+
   const deferredSearchStr = useDeferredValue(searchStr)
 
   const postList = useMemo(() => {

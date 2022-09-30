@@ -2,7 +2,7 @@ import { AddIcon } from '@chakra-ui/icons'
 import { Button, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-const AddPostButton = () => {
+const PostAddButton = () => {
   return (
     <NextLink href='/posts/new' passHref>
       <Button as='a' colorScheme='blue' size='md'>
@@ -13,4 +13,4 @@ const AddPostButton = () => {
   )
 }
 
-export default AddPostButton
+export default PostAddButton

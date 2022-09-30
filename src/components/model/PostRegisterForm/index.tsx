@@ -9,10 +9,10 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { FC } from 'react'
-import { useRegisterPostForm } from 'src/hooks/useRegisterPostForm'
-import AddTagForm from './AddTagForm'
+import TagAddForm from '../TagAddForm'
+import { useRegisterForm } from './hooks/useRegisterForm'
 
-const PostRegistration: FC = () => {
+const PostRegisterForm: FC = () => {
   const [
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ const PostRegistration: FC = () => {
     isSubmitting,
     tags,
     updateTags,
-  ] = useRegisterPostForm()
+  ] = useRegisterForm()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +44,7 @@ const PostRegistration: FC = () => {
           />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
-        <AddTagForm
+        <TagAddForm
           actionType='create'
           isLabelVisible
           tags={tags}
@@ -77,4 +77,4 @@ const PostRegistration: FC = () => {
   )
 }
 
-export default PostRegistration
+export default PostRegisterForm

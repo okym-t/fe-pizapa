@@ -10,11 +10,11 @@ import {
   Link,
   Badge,
 } from '@chakra-ui/react'
-import { useConvertPostCardText } from 'src/hooks/useConvertPostCardText'
 import { PostWithTags } from 'src/hooks/usePost'
-import TagList from './TagList'
 import { isMobile } from 'react-device-detect'
 import NextLink from 'next/link'
+import { useConvertPostCardText } from './hooks/useConvertPostCardText'
+import TagList from './elements/TagList'
 
 type Props = {
   post: PostWithTags

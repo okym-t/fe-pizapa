@@ -1,4 +1,4 @@
-import { Box, Center } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { FC } from 'react'
 
 const PostsEditTitle: FC = () => {

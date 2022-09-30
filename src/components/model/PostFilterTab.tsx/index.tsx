@@ -5,7 +5,7 @@ type Props = {
   handleClickTab: (index: number) => void
 }
 
-const FilterStatusTab: FC<Props> = ({ handleClickTab }) => {
+const PostFilterTab: FC<Props> = ({ handleClickTab }) => {
   return (
     <Tabs onChange={handleClickTab}>
       <TabList>
@@ -17,4 +17,4 @@ const FilterStatusTab: FC<Props> = ({ handleClickTab }) => {
   )
 }
 
-export default FilterStatusTab
+export default PostFilterTab

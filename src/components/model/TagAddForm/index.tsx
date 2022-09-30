@@ -9,7 +9,7 @@ import {
   TagLabel,
 } from '@chakra-ui/react'
 import { FC, useState } from 'react'
-import TagInput from './TagInput'
+import TagInput from './elements/TagInput/Index'
 
 type Props = {
   actionType: 'create' | 'edit'
