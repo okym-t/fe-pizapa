@@ -1,6 +1,7 @@
-import { Box, Center, Spinner } from '@chakra-ui/react'
+import { Box, Center, Spinner, SpinnerProps } from '@chakra-ui/react'
+import { FC } from 'react'
 
-const PageSpinner = () => {
+const PageSpinner: FC<SpinnerProps> = ({ ...props }) => {
   return (
     <Box h={400}>
       <Center h='100%'>
@@ -10,6 +11,7 @@ const PageSpinner = () => {
           emptyColor='gray.200'
           color='blue.500'
           size='xl'
+          {...props}
         />
       </Center>
     </Box>
