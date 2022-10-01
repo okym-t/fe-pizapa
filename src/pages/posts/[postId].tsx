@@ -2,10 +2,10 @@ import { Suspense } from 'react'
 
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'src/components/functional/ErrorBoundary'
-import { NextPageWithLayout } from '../_app'
-import { Layout } from 'src/layout/layout'
+import { Layout } from 'src/layout/headerLayout'
 import { useRouter } from 'next/router'
 import PageSpinner from 'src/components/ui/PageSpinner'
+import { NextPageWithLayout } from 'src/layout/layout.type'
 
 const PostEdit = dynamic(() => import('src/components/page/PostEdit'), {
   ssr: false,

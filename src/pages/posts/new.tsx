@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
 import ErrorBoundary from 'src/components/functional/ErrorBoundary'
-import { NextPageWithLayout } from '../_app'
-import { Layout } from 'src/layout/layout'
+import { Layout } from 'src/layout/headerLayout'
 import PostNew from 'src/components/page/PostNew'
 import PageSpinner from 'src/components/ui/PageSpinner'
+import { NextPageWithLayout } from 'src/layout/layout.type'
 
 export const Page: NextPageWithLayout = () => {
   return (
