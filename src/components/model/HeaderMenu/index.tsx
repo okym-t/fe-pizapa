@@ -1,9 +1,34 @@
-import { Stack, Heading, Flex, Text, Image, Link } from '@chakra-ui/react'
+import {
+  Stack,
+  Heading,
+  Flex,
+  Text,
+  Box,
+  Button,
+  Avatar,
+  Popover,
+  PopoverTrigger,
+  Portal,
+  PopoverContent,
+  PopoverHeader,
+  PopoverArrow,
+  PopoverBody,
+  List,
+  ListItem,
+  ListIcon,
+  Link,
+  Icon,
+} from '@chakra-ui/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import NextLink from 'next/link'
 import { memo } from 'react'
+import { FiLogOut } from 'react-icons/fi'
+import { RiGitlabFill } from 'react-icons/ri'
 
 // eslint-disable-next-line react/display-name
 const HeaderMenu = memo(() => {
+  const { data: session, status } = useSession()
+
   return (
     <Flex
       as='nav'
@@ -26,21 +51,67 @@ const HeaderMenu = memo(() => {
             ネタ
           </Text>
         </NextLink>
-        <NextLink href='/notification' passHref>
-          <Text as='a' fontWeight='bold'>
-            通知
-          </Text>
-        </NextLink>
+        {status === 'authenticated' && (
+          <NextLink href='/notification' passHref>
+            <Text as='a' fontWeight='bold'>
+              通知
+            </Text>
+          </NextLink>
+        )}
       </Stack>
 
-      <Link href='https://gitlab.com/gitlab-org/gitlab' isExternal>
-        <Image
-          borderRadius='full'
-          boxSize='40px'
-          src='https://gitlab.com/uploads/-/system/group/avatar/6543/logo-extra-whitespace.png?width=64'
-          alt='gitlab'
-        />
-      </Link>
+      <Box>
+        {session ? (
+          <>
+            <Popover closeOnBlur>
+              <PopoverTrigger>
+                <Avatar
+                  size='sm'
+                  name={session.user?.name ?? ''}
+                  src={session.user?.image ?? ''}
+                  cursor='pointer'
+                />
+              </PopoverTrigger>
+              <Portal>
+                <PopoverContent maxW={40}>
+                  <PopoverArrow />
+                  <PopoverHeader fontWeight='bold'>
+                    {session.user?.name}
+                  </PopoverHeader>
+                  <PopoverBody>
+                    <List spacing={3}>
+                      <ListItem
+                        cursor='pointer'
+                        onClick={() => signOut()}
+                        color='gray.600'
+                      >
+                        <ListIcon as={FiLogOut} color='gray.500' />
+                        ログアウト
+                      </ListItem>
+                    </List>
+                  </PopoverBody>
+                </PopoverContent>
+              </Portal>
+            </Popover>
+          </>
+        ) : (
+          <Button
+            colorScheme='blue'
+            variant='ghost'
+            bgColor='white'
+            size='sm'
+            onClick={() => signIn('google')}
+          >
+            SignIn
+          </Button>
+        )}
+      </Box>
+
+      {status === 'authenticated' && (
+        <Link href='https://gitlab.com/gitlab-org/gitlab' isExternal>
+          <Icon as={RiGitlabFill} w={8} h={8} ml={3} pt={1} />
+        </Link>
+      )}
     </Flex>
   )
 })
