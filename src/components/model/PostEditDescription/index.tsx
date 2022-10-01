@@ -14,6 +14,9 @@ import { FC, SyntheticEvent, useCallback, useState } from 'react'
 import { BsCheckLg } from 'react-icons/bs'
 import { ImCancelCircle } from 'react-icons/im'
 import { mutate } from 'swr'
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 type Props = {
   postId: string
@@ -125,7 +128,13 @@ const PostEditDescription: FC<Props> = ({
         />
       ) : (
         <Box mt={2} minH={200}>
-          {description}
+          <ReactMarkdown
+            components={ChakraUIRenderer()}
+            skipHtml
+            remarkPlugins={[remarkGfm]}
+          >
+            {description}
+          </ReactMarkdown>
         </Box>
       )}
     </Box>
