@@ -24,6 +24,7 @@ import NextLink from 'next/link'
 import { memo } from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { RiGitlabFill } from 'react-icons/ri'
+import { VscSignIn } from 'react-icons/vsc'
 
 // eslint-disable-next-line react/display-name
 const HeaderMenu = memo(() => {
@@ -96,6 +97,7 @@ const HeaderMenu = memo(() => {
           </>
         ) : (
           <Button
+            leftIcon={<Icon as={VscSignIn} />}
             colorScheme='blue'
             variant='ghost'
             bgColor='white'
