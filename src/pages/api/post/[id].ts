@@ -51,12 +51,12 @@ const getPostById = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const updatePost = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id, isAnonymous, title, description, tags } = req.body
+  const { id, isAnonymous, title, description, status, tags } = req.body
   try {
     console.log(title)
     const response = await prisma.post.update({
       where: { id },
-      data: { title },
+      data: { title, status },
     })
     // await prisma.tag.createMany({
     //   data: tags,
