@@ -1,43 +1,33 @@
 import {
   Box,
-  Button,
   Center,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  useToast,
   useColorModeValue,
   Tag,
   TagLabel,
   Stack,
   Text,
   Flex,
-  Heading,
-  IconButton,
-  Textarea,
-  Tooltip,
+  Button,
 } from '@chakra-ui/react'
 import { FC, useState } from 'react'
-import { useRouter } from 'next/router'
 import { PostWithTags, usePostById } from 'src/hooks/usePost'
 import AddTagForm from '../../model/TagAddForm'
-import { CheckCircleIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
-import { PostStatus } from 'src/types/api.types'
+import { DeleteIcon } from '@chakra-ui/icons'
 import { isMobile } from 'react-device-detect'
 import { useConvertPostCardText } from '../../model/PostCard/hooks/useConvertPostCardText'
+import { PostDeleteDialog } from 'src/components/model/PostDeleteDialog'
+import PostEditTitle from 'src/components/model/PostEditTitle'
+import PostEditStatusButton from 'src/components/model/PostEditStatusButton'
+import PostEditDescription from 'src/components/model/PostEditDescription'
+import { useSession } from 'next-auth/react'
 
 type Props = {
   postId: string
 }
 
 const PostEdit: FC<Props> = ({ postId }) => {
-  const router = useRouter()
-  const toast = useToast()
+  const { data: session } = useSession()
   const { data: post } = usePostById({
     id: postId,
   })
@@ -50,6 +40,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
     updatedAt,
     status,
     description,
+    avatarLink,
     tags: tagList,
   } = post as PostWithTags
   const [tags, setTags] = useState(tagList.map((tag) => tag.name))
@@ -65,128 +56,59 @@ const PostEdit: FC<Props> = ({ postId }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleClickDeleteConfirmButton = async () => {
-    try {
-      const response = await fetch(`/api/post/${postId}`, {
-        method: 'DELETE',
-      })
-      if (!response.ok) {
-        throw Error()
-      }
-      onClose()
-      await router.push('/posts')
-      toast({
-        title: '削除しました！',
-        status: 'success',
-        isClosable: true,
-        position: 'top',
-      })
-    } catch (error) {
-      toast({
-        title: 'エラーです',
-        status: 'error',
-        isClosable: true,
-        position: 'top',
-      })
-    }
-  }
-
-  const handleEdit = () => {
-    window.alert('TODO: タイトルを編集できるようにする')
-  }
-
-  const handleChangeStatus = () => {
-    window.alert('TODO: ステータスを変更できるようにする')
-  }
-
   return (
     <Center p={6}>
       <Box maxW='800px' w='full'>
         <Stack spacing={2}>
-          <Flex align='center' gap='2'>
-            <Tag
-              size='lg'
-              bg={useColorModeValue(statusColor, 'gray.800')}
-              fontWeight={'800'}
-              borderRadius='full'
-            >
-              <TagLabel>{statusText}</TagLabel>
-            </Tag>
-            <Text
-              fontSize={'md'}
-              color={useColorModeValue('gray.600', 'gray.800')}
-            >
-              {isAnonymous ? 'Anonymous' : name}
-            </Text>
-            {!isMobile && <Text color='gray.600'>{updatedText}</Text>}
-            <Tooltip
-              label={
-                status === PostStatus.open ? 'クローズする' : '再オープンする'
-              }
-              placement='top'
-            >
-              <IconButton
-                aria-label='Change status'
-                icon={<CheckCircleIcon />}
-                onClick={handleChangeStatus}
-              />
-            </Tooltip>
-            <Tooltip label='削除' placement='top'>
-              <IconButton
-                aria-label='Delete post'
-                icon={<DeleteIcon />}
-                onClick={onOpen}
-              />
-            </Tooltip>
+          <Flex justify='space-between'>
+            <Flex align='center' gap='2'>
+              <Tag
+                size='lg'
+                bg={useColorModeValue(statusColor, 'gray.800')}
+                fontWeight={'800'}
+                borderRadius='full'
+              >
+                <TagLabel>{statusText}</TagLabel>
+              </Tag>
+              <Text
+                fontSize={'md'}
+                color={useColorModeValue('gray.600', 'gray.800')}
+              >
+                {isAnonymous ? 'Anonymous' : name}
+              </Text>
+              {!isMobile && <Text color='gray.600'>{updatedText}</Text>}
+            </Flex>
+            {session && (
+              <Stack direction='row'>
+                <PostEditStatusButton postId={postId} status={status} />
+                <Button
+                  size='sm'
+                  colorScheme='red'
+                  variant='outline'
+                  leftIcon={<DeleteIcon />}
+                  onClick={onOpen}
+                >
+                  削除
+                </Button>
+              </Stack>
+            )}
           </Flex>
-          <Flex fontWeight={600} align='center' gap={1}>
-            <Heading as='h1' size='lg' fontWeight='800'>
-              {title}
-            </Heading>
-            <IconButton
-              aria-label='Edit title'
-              icon={<EditIcon />}
-              onClick={handleEdit}
-            />
-          </Flex>
+          <PostEditTitle postId={postId} title={title} />
           <AddTagForm
             actionType='edit'
             isLabelVisible={false}
             tags={tags}
             updateTags={updateTags}
           />
-          <Box shadow='md' borderRadius='10px' maxW='720px' bg='white' p={4}>
-            <Textarea
-              rows={10}
-              variant='unstyled'
-              placeholder='感想とかリンクとか'
-              maxLength={1000}
-              defaultValue={description}
-            />
-          </Box>
-          <Box mt={1}>TODO: この下にユーザーがいい感じにコメントしていける</Box>
+          <PostEditDescription
+            postId={postId}
+            name={name}
+            avatarLink={avatarLink ?? ''}
+            description={description}
+          />
         </Stack>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>削除</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>削除しますか？</ModalBody>
-          <ModalFooter>
-            <Button
-              colorScheme='red'
-              mr={3}
-              onClick={handleClickDeleteConfirmButton}
-            >
-              削除
-            </Button>
-            <Button variant='ghost' onClick={onClose}>
-              キャンセル
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <PostDeleteDialog postId={postId} isOpen={isOpen} onClose={onClose} />
     </Center>
   )
 }

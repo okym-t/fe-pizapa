@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 const PageSpinner: FC<SpinnerProps> = ({ ...props }) => {
   return (
-    <Box h='100vh'>
+    <Box h={600}>
       <Center h='100%'>
         <Spinner
           thickness='4px'
