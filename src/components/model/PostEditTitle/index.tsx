@@ -8,6 +8,7 @@ import {
   Input,
   useToast,
 } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
 import { FC, SyntheticEvent, useCallback, useState } from 'react'
 import { BsCheckLg } from 'react-icons/bs'
 import { ImCancelCircle } from 'react-icons/im'
@@ -19,6 +20,7 @@ type Props = {
 }
 
 const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
+  const { data: session } = useSession()
   const [cantEdit, setCanEdit] = useState(false)
   const [title, setTitle] = useState(initTitle)
   const toast = useToast()
@@ -100,11 +102,13 @@ const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
           <Heading as='h1' size='lg' fontWeight='800'>
             {title}
           </Heading>
-          <IconButton
-            aria-label='Edit title'
-            icon={<EditIcon />}
-            onClick={handleEdit}
-          />
+          {session && (
+            <IconButton
+              aria-label='Edit title'
+              icon={<EditIcon />}
+              onClick={handleEdit}
+            />
+          )}
         </Flex>
       )}
     </>

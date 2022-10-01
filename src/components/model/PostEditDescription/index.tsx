@@ -17,6 +17,7 @@ import { mutate } from 'swr'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { useSession } from 'next-auth/react'
 
 type Props = {
   postId: string
@@ -31,6 +32,7 @@ const PostEditDescription: FC<Props> = ({
   description: initDescription,
   avatarLink,
 }) => {
+  const { data: session } = useSession()
   const [canEdit, setCanEdit] = useState(false)
   const [description, setDescription] = useState(initDescription)
   const toast = useToast()
@@ -106,15 +108,19 @@ const PostEditDescription: FC<Props> = ({
             </Button>
           </Stack>
         ) : (
-          <Button
-            size='sm'
-            colorScheme='blue'
-            variant='outline'
-            leftIcon={<EditIcon />}
-            onClick={handleEdit}
-          >
-            編集
-          </Button>
+          <>
+            {session && (
+              <Button
+                size='sm'
+                colorScheme='blue'
+                variant='outline'
+                leftIcon={<EditIcon />}
+                onClick={handleEdit}
+              >
+                編集
+              </Button>
+            )}
+          </>
         )}
       </Flex>
       {canEdit ? (

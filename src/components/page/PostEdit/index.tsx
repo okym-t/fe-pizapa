@@ -20,12 +20,14 @@ import { PostDeleteDialog } from 'src/components/model/PostDeleteDialog'
 import PostEditTitle from 'src/components/model/PostEditTitle'
 import PostEditStatusButton from 'src/components/model/PostEditStatusButton'
 import PostEditDescription from 'src/components/model/PostEditDescription'
+import { useSession } from 'next-auth/react'
 
 type Props = {
   postId: string
 }
 
 const PostEdit: FC<Props> = ({ postId }) => {
+  const { data: session } = useSession()
   const { data: post } = usePostById({
     id: postId,
   })
@@ -76,18 +78,20 @@ const PostEdit: FC<Props> = ({ postId }) => {
               </Text>
               {!isMobile && <Text color='gray.600'>{updatedText}</Text>}
             </Flex>
-            <Stack direction='row'>
-              <PostEditStatusButton postId={postId} status={status} />
-              <Button
-                size='sm'
-                colorScheme='red'
-                variant='outline'
-                leftIcon={<DeleteIcon />}
-                onClick={onOpen}
-              >
-                削除
-              </Button>
-            </Stack>
+            {session && (
+              <Stack direction='row'>
+                <PostEditStatusButton postId={postId} status={status} />
+                <Button
+                  size='sm'
+                  colorScheme='red'
+                  variant='outline'
+                  leftIcon={<DeleteIcon />}
+                  onClick={onOpen}
+                >
+                  削除
+                </Button>
+              </Stack>
+            )}
           </Flex>
           <PostEditTitle postId={postId} title={title} />
           <AddTagForm
