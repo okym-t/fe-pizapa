@@ -15,7 +15,6 @@ import { isMobile } from 'react-device-detect'
 import NextLink from 'next/link'
 import { useConvertPostCardText } from './hooks/useConvertPostCardText'
 import TagList from './elements/TagList'
-import { useSession } from 'next-auth/react'
 
 type Props = {
   post: PostWithTags
@@ -48,7 +47,7 @@ const PostCard: FC<Props> = ({ post }) => {
       borderColor='gray.200'
     >
       <Stack direction={'row'}>
-        <Avatar size='md' name={name} src={avatarLink} />
+        <Avatar size='md' name={name} src={avatarLink ?? ''} />
         <Stack direction={'column'}>
           <Heading fontSize={'md'} fontWeight={'800'}>
             <NextLink href={`/posts/${id}`} passHref>
