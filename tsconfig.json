@@ -21,6 +21,6 @@
     "**/*.ts",
     "**/*.tsx",
     "cypress/integration/example.spec.ts"
-  ],
+, "src/components/model/PostFilterTab"  ],
   "exclude": ["node_modules", "cypress/**/*"]
 }

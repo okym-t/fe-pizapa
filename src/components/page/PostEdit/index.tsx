@@ -30,14 +30,13 @@ import { CheckCircleIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import { PostStatus } from 'src/types/api.types'
 import { isMobile } from 'react-device-detect'
 import { useConvertPostCardText } from '../../model/PostCard/hooks/useConvertPostCardText'
+import { PostDeleteDialog } from 'src/components/model/PostDeleteDialog'
 
 type Props = {
   postId: string
 }
 
 const PostEdit: FC<Props> = ({ postId }) => {
-  const router = useRouter()
-  const toast = useToast()
   const { data: post } = usePostById({
     id: postId,
   })
@@ -64,32 +63,6 @@ const PostEdit: FC<Props> = ({ postId }) => {
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const handleClickDeleteConfirmButton = async () => {
-    try {
-      const response = await fetch(`/api/post/${postId}`, {
-        method: 'DELETE',
-      })
-      if (!response.ok) {
-        throw Error()
-      }
-      onClose()
-      await router.push('/posts')
-      toast({
-        title: '削除しました！',
-        status: 'success',
-        isClosable: true,
-        position: 'top',
-      })
-    } catch (error) {
-      toast({
-        title: 'エラーです',
-        status: 'error',
-        isClosable: true,
-        position: 'top',
-      })
-    }
-  }
 
   const handleEdit = () => {
     window.alert('TODO: タイトルを編集できるようにする')
@@ -167,26 +140,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
           <Box mt={1}>TODO: この下にユーザーがいい感じにコメントしていける</Box>
         </Stack>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>削除</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>削除しますか？</ModalBody>
-          <ModalFooter>
-            <Button
-              colorScheme='red'
-              mr={3}
-              onClick={handleClickDeleteConfirmButton}
-            >
-              削除
-            </Button>
-            <Button variant='ghost' onClick={onClose}>
-              キャンセル
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <PostDeleteDialog postId={postId} isOpen={isOpen} onClose={onClose} />
     </Center>
   )
 }
