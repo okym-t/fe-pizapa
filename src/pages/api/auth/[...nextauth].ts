@@ -17,6 +17,11 @@ export default NextAuth({
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: 'login',
+        },
+      },
     }),
   ],
   secret: SECRET,
