@@ -1,36 +1,26 @@
 import {
   Box,
-  Button,
   Center,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  useToast,
   useColorModeValue,
   Tag,
   TagLabel,
   Stack,
   Text,
   Flex,
-  Heading,
   IconButton,
   Textarea,
   Tooltip,
 } from '@chakra-ui/react'
 import { FC, useState } from 'react'
-import { useRouter } from 'next/router'
 import { PostWithTags, usePostById } from 'src/hooks/usePost'
 import AddTagForm from '../../model/TagAddForm'
-import { CheckCircleIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { CheckCircleIcon, DeleteIcon } from '@chakra-ui/icons'
 import { PostStatus } from 'src/types/api.types'
 import { isMobile } from 'react-device-detect'
 import { useConvertPostCardText } from '../../model/PostCard/hooks/useConvertPostCardText'
 import { PostDeleteDialog } from 'src/components/model/PostDeleteDialog'
+import PostEditTitle from 'src/components/model/PostEditTitle'
 
 type Props = {
   postId: string
@@ -63,10 +53,6 @@ const PostEdit: FC<Props> = ({ postId }) => {
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const handleEdit = () => {
-    window.alert('TODO: タイトルを編集できるようにする')
-  }
 
   const handleChangeStatus = () => {
     window.alert('TODO: ステータスを変更できるようにする')
@@ -112,23 +98,14 @@ const PostEdit: FC<Props> = ({ postId }) => {
               />
             </Tooltip>
           </Flex>
-          <Flex fontWeight={600} align='center' gap={1}>
-            <Heading as='h1' size='lg' fontWeight='800'>
-              {title}
-            </Heading>
-            <IconButton
-              aria-label='Edit title'
-              icon={<EditIcon />}
-              onClick={handleEdit}
-            />
-          </Flex>
+          <PostEditTitle postId={postId} title={title} />
           <AddTagForm
             actionType='edit'
             isLabelVisible={false}
             tags={tags}
             updateTags={updateTags}
           />
-          <Box shadow='md' borderRadius='10px' maxW='720px' bg='white' p={4}>
+          <Box shadow='md' borderRadius='10px' bg='white' p={4}>
             <Textarea
               rows={10}
               variant='unstyled'

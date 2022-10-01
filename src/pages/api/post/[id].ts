@@ -4,7 +4,7 @@ import { prisma } from 'src/lib/prismaClient'
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     return await getPostById(req, res)
-  } else if (req.method === 'PUT') {
+  } else if (req.method === 'PATCH') {
     return await updatePost(req, res)
   } else if (req.method === 'DELETE') {
     return await deletePostById(req, res)
@@ -53,25 +53,30 @@ const getPostById = async (req: NextApiRequest, res: NextApiResponse) => {
 const updatePost = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id, isAnonymous, title, description, tags } = req.body
   try {
-    await prisma.tag.createMany({
-      data: tags,
-      skipDuplicates: true,
+    console.log(title)
+    const response = await prisma.post.update({
+      where: { id },
+      data: { title },
     })
+    // await prisma.tag.createMany({
+    //   data: tags,
+    //   skipDuplicates: true,
+    // })
 
-    const tagList = await prisma.tag.findMany({
-      where: { name: { in: tags.map((tag: any) => tag.name) } },
-    })
-    const createRelation = tagList.map((tag) => {
-      return {
-        assignedBy: '',
-        tag: {
-          connect: {
-            id: tag.id,
-          },
-        },
-      }
-    })
-    return res.status(200).json('')
+    // const tagList = await prisma.tag.findMany({
+    //   where: { name: { in: tags.map((tag: any) => tag.name) } },
+    // })
+    // const createRelation = tagList.map((tag) => {
+    //   return {
+    //     assignedBy: '',
+    //     tag: {
+    //       connect: {
+    //         id: tag.id,
+    //       },
+    //     },
+    //   }
+    // })
+    return res.status(200).json(response)
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: { message: 'Server Error' } })
