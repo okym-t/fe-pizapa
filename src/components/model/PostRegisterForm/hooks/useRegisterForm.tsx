@@ -6,18 +6,21 @@ import { mutate } from 'swr'
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 export const POST_URL = '/api/post'
 
 export const useRegisterForm = () => {
   const router = useRouter()
   const toast = useToast()
+  const { data: session } = useSession()
 
   const defaultValues = {
-    name: '',
+    name: session?.user?.name ?? '',
     isAnonymous: false,
     title: '',
     description: '',
+    avatarLink: session?.user?.image ?? '',
   }
   const {
     register,

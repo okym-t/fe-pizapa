@@ -26,14 +26,6 @@ const PostRegisterForm: FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <FormControl isInvalid={errors.name !== undefined}>
-          <FormLabel htmlFor='name'>名前</FormLabel>
-          <Input id='name' bgColor='white' {...register('name')} />
-          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-        </FormControl>
-        <FormControl>
-          <Checkbox {...register('isAnonymous')}>匿名で投稿する</Checkbox>
-        </FormControl>
         <FormControl isInvalid={errors.title !== undefined}>
           <FormLabel htmlFor='title'>タイトル</FormLabel>
           <Input
@@ -61,6 +53,11 @@ const PostRegisterForm: FC = () => {
             {...register('description')}
           />
           <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+        </FormControl>
+        <FormControl>
+          <Checkbox my={4} {...register('isAnonymous')}>
+            匿名で投稿する
+          </Checkbox>
         </FormControl>
 
         <Button
