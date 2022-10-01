@@ -1,6 +1,6 @@
-import { Layout } from 'src/layout/layout'
+import { Layout } from 'src/layout/headerLayout'
+import { NextPageWithLayout } from 'src/layout/layout.type'
 import Posts from './posts'
-import { NextPageWithLayout } from './_app'
 
 export const Page: NextPageWithLayout = () => {
   return <Posts />
