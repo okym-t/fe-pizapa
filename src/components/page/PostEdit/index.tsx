@@ -8,7 +8,6 @@ import {
   Stack,
   Text,
   Flex,
-  Textarea,
   Button,
 } from '@chakra-ui/react'
 import { FC, useState } from 'react'
@@ -20,6 +19,7 @@ import { useConvertPostCardText } from '../../model/PostCard/hooks/useConvertPos
 import { PostDeleteDialog } from 'src/components/model/PostDeleteDialog'
 import PostEditTitle from 'src/components/model/PostEditTitle'
 import PostEditStatusButton from 'src/components/model/PostEditStatusButton'
+import PostEditDescription from 'src/components/model/PostEditDescription'
 
 type Props = {
   postId: string
@@ -38,6 +38,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
     updatedAt,
     status,
     description,
+    avatarLink,
     tags: tagList,
   } = post as PostWithTags
   const [tags, setTags] = useState(tagList.map((tag) => tag.name))
@@ -95,16 +96,12 @@ const PostEdit: FC<Props> = ({ postId }) => {
             tags={tags}
             updateTags={updateTags}
           />
-          <Box shadow='md' borderRadius='10px' bg='white' p={4}>
-            <Textarea
-              rows={10}
-              variant='unstyled'
-              placeholder='感想とかリンクとか'
-              maxLength={1000}
-              defaultValue={description}
-            />
-          </Box>
-          <Box mt={1}>TODO: この下にユーザーがいい感じにコメントしていける</Box>
+          <PostEditDescription
+            postId={postId}
+            name={name}
+            avatarLink={avatarLink ?? ''}
+            description={description}
+          />
         </Stack>
       </Box>
       <PostDeleteDialog postId={postId} isOpen={isOpen} onClose={onClose} />

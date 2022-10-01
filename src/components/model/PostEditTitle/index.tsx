@@ -19,12 +19,12 @@ type Props = {
 }
 
 const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
-  const [isEdit, setIsEdit] = useState(false)
+  const [cantEdit, setCanEdit] = useState(false)
   const [title, setTitle] = useState(initTitle)
   const toast = useToast()
 
   const handleEdit = () => {
-    setIsEdit(true)
+    setCanEdit(true)
   }
 
   const handleSave = async () => {
@@ -37,7 +37,7 @@ const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
       if (!response.ok) {
         throw Error()
       }
-      setIsEdit(false)
+      setCanEdit(false)
       mutate(`/api/post/${postId}`)
       toast({
         title: 'タイトルを更新しました！',
@@ -56,7 +56,7 @@ const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
   }
 
   const handleCancel = () => {
-    setIsEdit(false)
+    setCanEdit(false)
     setTitle(initTitle)
   }
 
@@ -67,7 +67,7 @@ const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
 
   return (
     <>
-      {isEdit ? (
+      {cantEdit ? (
         <Flex gap={2}>
           <Input
             variant='flushed'
