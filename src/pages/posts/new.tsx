@@ -4,13 +4,16 @@ import { Layout } from 'src/layout/headerLayout'
 import PostNew from 'src/components/page/PostNew'
 import PageSpinner from 'src/components/ui/PageSpinner'
 import { NextPageWithLayout } from 'src/layout/layout.type'
+import { useRequireLogin } from 'src/hooks/useRequireLogin'
 
 export const Page: NextPageWithLayout = () => {
+  const [isLoading] = useRequireLogin()
+
   return (
     <>
       <ErrorBoundary FallbackComponent={<div>error!!</div>}>
         <Suspense fallback={<PageSpinner />}>
-          <PostNew />
+          {isLoading ? <PageSpinner /> : <PostNew />}
         </Suspense>
       </ErrorBoundary>
     </>

@@ -21,8 +21,17 @@ type Props = {
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { id, name, isAnonymous, title, status, createdAt, updatedAt, tags } =
-    post
+  const {
+    id,
+    name,
+    isAnonymous,
+    title,
+    status,
+    avatarLink,
+    createdAt,
+    updatedAt,
+    tags,
+  } = post
 
   const [updatedText, statusText, statusColor] = useConvertPostCardText({
     createdAt,
@@ -38,11 +47,7 @@ const PostCard: FC<Props> = ({ post }) => {
       borderColor='gray.200'
     >
       <Stack direction={'row'}>
-        <Avatar
-          size={'md'}
-          // TODO: ユーザーごとのアイコン
-          src={''}
-        />
+        <Avatar size='md' name={name} src={avatarLink ?? ''} />
         <Stack direction={'column'}>
           <Heading fontSize={'md'} fontWeight={'800'}>
             <NextLink href={`/posts/${id}`} passHref>

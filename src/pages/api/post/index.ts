@@ -24,6 +24,7 @@ async function getPosts(req: NextApiRequest, res: NextApiResponse) {
         isAnonymous: true,
         title: true,
         description: true,
+        avatarLink: true,
         status: true,
         tags: {
           select: {
@@ -56,7 +57,7 @@ async function getPosts(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createPost(req: NextApiRequest, res: NextApiResponse) {
-  const { name, isAnonymous, title, description, tags } = req.body
+  const { name, isAnonymous, title, description, avatarLink, tags } = req.body
   try {
     await prisma.tag.createMany({
       data: tags,
@@ -82,6 +83,7 @@ async function createPost(req: NextApiRequest, res: NextApiResponse) {
         isAnonymous,
         title,
         description,
+        avatarLink,
         status: PostStatus.open,
         tags: {
           create: createRelation,
