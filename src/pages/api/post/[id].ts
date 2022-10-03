@@ -43,6 +43,7 @@ const getPostById = async (req: NextApiRequest, res: NextApiResponse) => {
     const response = {
       ...post,
       name: post.isAnonymous ? '' : post.name,
+      avatarLink: post.isAnonymous ? '' : post.avatarLink,
       tags: post.tags.map(({ tag }) => ({ id: tag.id, name: tag.name })),
     }
     return res.status(200).json(response)
