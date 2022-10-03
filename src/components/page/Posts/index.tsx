@@ -17,11 +17,7 @@ const Posts: FC = () => {
         <Stack direction='row' justifyContent='space-between'>
           <FilterStatusTab />
           {session && (
-            <LinkButton
-              text='Add Button'
-              path='/posts/new'
-              colorScheme='blue'
-            />
+            <LinkButton text='新規登録' path='/posts/new' colorScheme='blue' />
           )}
         </Stack>
         <PostCardList />
