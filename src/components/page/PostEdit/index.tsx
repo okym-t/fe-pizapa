@@ -21,6 +21,7 @@ import PostEditTitle from 'src/components/model/PostEditTitle'
 import PostEditStatusButton from 'src/components/model/PostEditStatusButton'
 import PostEditDescription from 'src/components/model/PostEditDescription'
 import { useSession } from 'next-auth/react'
+import CommentList from 'src/components/model/CommentList'
 
 type Props = {
   postId: string
@@ -101,12 +102,15 @@ const PostEdit: FC<Props> = ({ postId }) => {
             tags={tags}
             updateTags={updateTags}
           />
+        </Stack>
+        <Stack spacing={4}>
           <PostEditDescription
             postId={postId}
             name={name}
             avatarLink={avatarLink ?? ''}
             description={description}
           />
+          <CommentList />
         </Stack>
       </Box>
       <PostDeleteDialog postId={postId} isOpen={isOpen} onClose={onClose} />
