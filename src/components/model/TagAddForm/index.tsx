@@ -43,7 +43,6 @@ const AddTagForm: FC<Props> = ({
   }
 
   const handleSave = async () => {
-    console.log('handleSave', postId)
     if (!postId) return
     try {
       const response = await fetch(`/api/post/${postId}`, {

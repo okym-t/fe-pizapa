@@ -10,7 +10,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { BsCheckLg } from 'react-icons/bs'
 import Comment from './elements/Comment'
 
@@ -27,34 +27,36 @@ const CommentList: FC = () => {
       {comments.map(({ id, name, content }) => (
         <Comment key={id} name={name} content={content} />
       ))}
-      <Box shadow='md' borderRadius='10px' bg='white' p={4}>
-        <Flex justify='space-between'>
-          <Stack direction='row'>
-            <Avatar
+      {session && (
+        <Box shadow='md' borderRadius='10px' bg='white' p={4}>
+          <Flex justify='space-between'>
+            <Stack direction='row'>
+              <Avatar
+                size='sm'
+                name={session?.user?.name ?? ''}
+                src={session?.user?.image ?? ''}
+              />
+              <Text>{session?.user?.name}</Text>
+            </Stack>
+          </Flex>
+          <Textarea
+            rows={3}
+            variant='unstyled'
+            placeholder='記事に対するコメント'
+            maxLength={1000}
+          />
+          <Flex justify='flex-end'>
+            <Button
               size='sm'
-              name={session?.user?.name ?? ''}
-              src={session?.user?.image ?? ''}
-            />
-            <Text>{session?.user?.name}</Text>
-          </Stack>
-        </Flex>
-        <Textarea
-          rows={9}
-          variant='unstyled'
-          placeholder='記事に対するコメント'
-          maxLength={1000}
-        />
-        <Flex justify='flex-end'>
-          <Button
-            size='sm'
-            colorScheme='blue'
-            variant='outline'
-            leftIcon={<Icon as={BsCheckLg} />}
-          >
-            投稿
-          </Button>
-        </Flex>
-      </Box>
+              colorScheme='blue'
+              variant='outline'
+              leftIcon={<Icon as={BsCheckLg} />}
+            >
+              投稿
+            </Button>
+          </Flex>
+        </Box>
+      )}
     </>
   )
 }
