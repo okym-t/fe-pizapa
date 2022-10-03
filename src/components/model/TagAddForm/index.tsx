@@ -9,6 +9,7 @@ import {
   TagLabel,
   useToast,
 } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
 import { FC, useState } from 'react'
 import { mutate } from 'swr'
 import TagInput from './elements/TagInput/Index'
@@ -28,6 +29,7 @@ const AddTagForm: FC<Props> = ({
   tags,
   updateTags,
 }) => {
+  const { data: session } = useSession()
   const toast = useToast()
   const [isInputVisible, setIsInputVisible] = useState(false)
   const switchInputVisible = () => {
@@ -119,12 +121,14 @@ const AddTagForm: FC<Props> = ({
               </Tag>
             ))}
           </Stack>
-          <Flex color='blue.500' fontWeight={600} align='center'>
-            <Button size='sm' variant='ghost' onClick={switchInputVisible}>
-              <AddIcon w={3} h={3} mr={1} />
-              タグを追加
-            </Button>
-          </Flex>
+          {session && (
+            <Flex color='blue.500' fontWeight={600} align='center'>
+              <Button size='sm' variant='ghost' onClick={switchInputVisible}>
+                <AddIcon w={3} h={3} mr={1} />
+                タグを追加
+              </Button>
+            </Flex>
+          )}
         </>
       )}
     </>
