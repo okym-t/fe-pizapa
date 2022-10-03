@@ -103,7 +103,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
             updateTags={updateTags}
           />
         </Stack>
-        <Stack spacing={4}>
+        <Stack spacing={4} mt={2}>
           <PostEditDescription
             postId={postId}
             name={name}
