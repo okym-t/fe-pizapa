@@ -96,6 +96,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
           <PostEditTitle postId={postId} title={title} />
           <AddTagForm
             actionType='edit'
+            postId={postId}
             isLabelVisible={false}
             tags={tags}
             updateTags={updateTags}

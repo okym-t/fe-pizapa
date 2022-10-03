@@ -53,31 +53,36 @@ const getPostById = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const updatePost = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id, isAnonymous, title, description, status, tags } = req.body
+  const { id, title, description, status, tags } = req.body
   try {
-    console.log(title)
+    if (tags) {
+      await prisma.tag.createMany({
+        data: tags,
+        skipDuplicates: true,
+      })
+      const tagList = await prisma.tag.findMany({
+        where: { name: { in: tags.map((tag: any) => tag.name) } },
+      })
+      const createRelation = tagList.map((tag) => {
+        return {
+          assignedBy: '',
+          tag: {
+            connect: {
+              id: tag.id,
+            },
+          },
+        }
+      })
+      const response = await prisma.post.update({
+        where: { id },
+        data: { tags: { deleteMany: {}, create: createRelation } },
+      })
+      return res.status(200).json(response)
+    }
     const response = await prisma.post.update({
       where: { id },
       data: { title, status, description },
     })
-    // await prisma.tag.createMany({
-    //   data: tags,
-    //   skipDuplicates: true,
-    // })
-
-    // const tagList = await prisma.tag.findMany({
-    //   where: { name: { in: tags.map((tag: any) => tag.name) } },
-    // })
-    // const createRelation = tagList.map((tag) => {
-    //   return {
-    //     assignedBy: '',
-    //     tag: {
-    //       connect: {
-    //         id: tag.id,
-    //       },
-    //     },
-    //   }
-    // })
     return res.status(200).json(response)
   } catch (error) {
     console.log(error)

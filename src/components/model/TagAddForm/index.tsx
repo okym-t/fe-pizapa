@@ -7,12 +7,15 @@ import {
   Stack,
   Tag,
   TagLabel,
+  useToast,
 } from '@chakra-ui/react'
 import { FC, useState } from 'react'
+import { mutate } from 'swr'
 import TagInput from './elements/TagInput/Index'
 
 type Props = {
   actionType: 'create' | 'edit'
+  postId?: string
   isLabelVisible: boolean
   tags: string[]
   updateTags: (tags: string[]) => void
@@ -20,10 +23,12 @@ type Props = {
 
 const AddTagForm: FC<Props> = ({
   actionType,
+  postId,
   isLabelVisible,
   tags,
   updateTags,
 }) => {
+  const toast = useToast()
   const [isInputVisible, setIsInputVisible] = useState(false)
   const switchInputVisible = () => {
     setIsInputVisible((value) => !value)
@@ -35,9 +40,37 @@ const AddTagForm: FC<Props> = ({
     setIsInputVisible(false)
   }
 
-  const handleSave = () => {
-    window.alert('TODO: PUTなげる')
-    setIsInputVisible(false)
+  const handleSave = async () => {
+    console.log('handleSave', postId)
+    if (!postId) return
+    try {
+      const response = await fetch(`/api/post/${postId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: Number(postId),
+          tags: tags.map((tag) => ({ name: tag })),
+        }),
+      })
+      if (!response.ok) {
+        throw Error()
+      }
+      setIsInputVisible(false)
+      mutate(`/api/post/${postId}`)
+      toast({
+        title: '更新しました！',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+      })
+    } catch (error) {
+      toast({
+        title: 'エラーです',
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+      })
+    }
   }
 
   return (
