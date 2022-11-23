@@ -138,7 +138,7 @@ const Comment: FC<Props> = ({
           </Stack>
         ) : (
           <>
-            {(session?.user as any).id === userId && (
+            {session && (session?.user as any).id === userId && (
               <Stack direction='row'>
                 <Button
                   size='sm'

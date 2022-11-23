@@ -80,7 +80,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
               </Text>
               {!isMobile && <Text color='gray.600'>{updatedText}</Text>}
             </Flex>
-            {(session?.user as any).id === userId && (
+            {session && (session?.user as any).id === userId && (
               <Stack direction='row'>
                 <PostEditStatusButton postId={postId} status={status} />
                 <Button

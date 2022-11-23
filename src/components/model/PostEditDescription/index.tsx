@@ -111,7 +111,7 @@ const PostEditDescription: FC<Props> = ({
           </Stack>
         ) : (
           <>
-            {(session?.user as any).id === userId && (
+            {session && (session?.user as any).id === userId && (
               <Button
                 size='sm'
                 colorScheme='blue'

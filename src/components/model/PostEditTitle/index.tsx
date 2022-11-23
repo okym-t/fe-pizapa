@@ -103,7 +103,7 @@ const PostEditTitle: FC<Props> = ({ postId, title: initTitle, userId }) => {
           <Heading as='h1' size='lg' fontWeight='800'>
             {title}
           </Heading>
-          {(session?.user as any).id === userId && (
+          {session && (session?.user as any).id === userId && (
             <IconButton
               aria-label='Edit title'
               icon={<EditIcon />}
