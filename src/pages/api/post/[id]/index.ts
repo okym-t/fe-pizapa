@@ -20,6 +20,7 @@ const getPostById = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: Number(id) },
       select: {
         id: true,
+        userId: true,
         name: true,
         isAnonymous: true,
         title: true,

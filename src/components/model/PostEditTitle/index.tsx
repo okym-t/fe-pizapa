@@ -17,9 +17,10 @@ import { mutate } from 'swr'
 type Props = {
   postId: string
   title: string
+  userId: string
 }
 
-const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
+const PostEditTitle: FC<Props> = ({ postId, title: initTitle, userId }) => {
   const { data: session } = useSession()
   const [cantEdit, setCanEdit] = useState(false)
   const [title, setTitle] = useState(initTitle)
@@ -102,7 +103,7 @@ const PostEditTitle: FC<Props> = ({ postId, title: initTitle }) => {
           <Heading as='h1' size='lg' fontWeight='800'>
             {title}
           </Heading>
-          {session && (
+          {session && (session?.user as any).id === userId && (
             <IconButton
               aria-label='Edit title'
               icon={<EditIcon />}

@@ -20,6 +20,7 @@ import remarkGfm from 'remark-gfm'
 import { useSession } from 'next-auth/react'
 
 type Props = {
+  userId: string
   postId: string
   name: string
   description: string
@@ -27,6 +28,7 @@ type Props = {
 }
 
 const PostEditDescription: FC<Props> = ({
+  userId,
   postId,
   name,
   description: initDescription,
@@ -109,7 +111,7 @@ const PostEditDescription: FC<Props> = ({
           </Stack>
         ) : (
           <>
-            {session && (
+            {session && (session?.user as any).id === userId && (
               <Button
                 size='sm'
                 colorScheme='blue'
