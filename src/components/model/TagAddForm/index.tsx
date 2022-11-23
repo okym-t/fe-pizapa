@@ -122,7 +122,9 @@ const AddTagForm: FC<Props> = ({
               </Tag>
             ))}
           </Stack>
-          {(userId ? (session?.user as any).id === userId : true) && (
+          {(userId
+            ? session && (session?.user as any).id === userId
+            : true) && (
             <Flex color='blue.500' fontWeight={600} align='center'>
               <Button size='sm' variant='ghost' onClick={switchInputVisible}>
                 <AddIcon w={3} h={3} mr={1} />
