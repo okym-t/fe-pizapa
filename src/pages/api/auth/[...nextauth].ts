@@ -24,5 +24,13 @@ export default NextAuth({
       },
     }),
   ],
+  callbacks: {
+    session: async ({ session, token, user }) => {
+      if (session?.user) {
+        ;(session.user as any).id = user.id
+      }
+      return session
+    },
+  },
   secret: SECRET,
 })

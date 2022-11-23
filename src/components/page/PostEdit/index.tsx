@@ -34,6 +34,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
   })
 
   const {
+    userId,
     title,
     isAnonymous,
     name,
@@ -79,7 +80,7 @@ const PostEdit: FC<Props> = ({ postId }) => {
               </Text>
               {!isMobile && <Text color='gray.600'>{updatedText}</Text>}
             </Flex>
-            {session && (
+            {(session?.user as any).id === userId && (
               <Stack direction='row'>
                 <PostEditStatusButton postId={postId} status={status} />
                 <Button
@@ -94,10 +95,11 @@ const PostEdit: FC<Props> = ({ postId }) => {
               </Stack>
             )}
           </Flex>
-          <PostEditTitle postId={postId} title={title} />
+          <PostEditTitle postId={postId} title={title} userId={userId} />
           <AddTagForm
             actionType='edit'
             postId={postId}
+            userId={userId}
             isLabelVisible={false}
             tags={tags}
             updateTags={updateTags}
@@ -106,11 +108,12 @@ const PostEdit: FC<Props> = ({ postId }) => {
         <Stack spacing={4} mt={2}>
           <PostEditDescription
             postId={postId}
+            userId={userId}
             name={name}
             avatarLink={avatarLink ?? ''}
             description={description}
           />
-          <CommentList />
+          <CommentList postId={postId} />
         </Stack>
       </Box>
       <PostDeleteDialog postId={postId} isOpen={isOpen} onClose={onClose} />

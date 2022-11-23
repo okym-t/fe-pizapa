@@ -44,6 +44,7 @@ export const useRegisterForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...data,
+          userId: (session?.user as any).id,
           tags: tags.map((tag) => ({ name: tag })),
         }),
       })

@@ -17,13 +17,25 @@ import { BsCheckLg } from 'react-icons/bs'
 import { ImCancelCircle } from 'react-icons/im'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { mutate } from 'swr'
 
 type Props = {
+  id: string
   name: string
   content: string
+  avatarLink: string
+  postId: string
+  userId: string
 }
 
-const Comment: FC<Props> = ({ name, content }) => {
+const Comment: FC<Props> = ({
+  id,
+  name,
+  content,
+  avatarLink,
+  postId,
+  userId,
+}) => {
   const { data: session } = useSession()
   const [canEdit, setCanEdit] = useState(false)
   const [description, setDescription] = useState(content)
@@ -39,7 +51,47 @@ const Comment: FC<Props> = ({ name, content }) => {
 
   const handleSave = async () => {
     try {
-      window.alert('TODO:実装してない')
+      const response = await fetch(`/api/post/${postId}/comments/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: Number(id), description }),
+      })
+      if (!response.ok) {
+        throw Error()
+      }
+      await mutate(`/api/post/${postId}/comments`)
+      setCanEdit(false)
+      toast({
+        title: '更新しました！',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+      })
+    } catch (error) {
+      toast({
+        title: 'エラーです',
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+      })
+    }
+  }
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/post/${postId}/comments/${id}`, {
+        method: 'DELETE',
+      })
+      if (!response.ok) {
+        throw Error()
+      }
+      mutate(`/api/post/${postId}/comments`)
+      toast({
+        title: '削除しました！',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+      })
     } catch (error) {
       toast({
         title: 'エラーです',
@@ -59,7 +111,7 @@ const Comment: FC<Props> = ({ name, content }) => {
     <Box shadow='md' borderRadius='10px' bg='white' p={4}>
       <Flex justify='space-between'>
         <Stack direction='row'>
-          <Avatar size='sm' name={name} src={''} />
+          <Avatar size='sm' name={name} src={avatarLink} />
           <Text>{name}</Text>
         </Stack>
         {canEdit ? (
@@ -86,7 +138,7 @@ const Comment: FC<Props> = ({ name, content }) => {
           </Stack>
         ) : (
           <>
-            {session && (
+            {(session?.user as any).id === userId && (
               <Stack direction='row'>
                 <Button
                   size='sm'
@@ -102,7 +154,7 @@ const Comment: FC<Props> = ({ name, content }) => {
                   colorScheme='red'
                   variant='outline'
                   leftIcon={<DeleteIcon />}
-                  onClick={() => {}}
+                  onClick={handleDelete}
                 >
                   削除
                 </Button>

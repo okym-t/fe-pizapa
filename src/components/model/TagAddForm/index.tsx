@@ -17,6 +17,7 @@ import TagInput from './elements/TagInput/Index'
 type Props = {
   actionType: 'create' | 'edit'
   postId?: string
+  userId: string
   isLabelVisible: boolean
   tags: string[]
   updateTags: (tags: string[]) => void
@@ -27,6 +28,7 @@ const AddTagForm: FC<Props> = ({
   postId,
   isLabelVisible,
   tags,
+  userId,
   updateTags,
 }) => {
   const { data: session } = useSession()
@@ -120,7 +122,7 @@ const AddTagForm: FC<Props> = ({
               </Tag>
             ))}
           </Stack>
-          {session && (
+          {(session?.user as any).id === userId && (
             <Flex color='blue.500' fontWeight={600} align='center'>
               <Button size='sm' variant='ghost' onClick={switchInputVisible}>
                 <AddIcon w={3} h={3} mr={1} />

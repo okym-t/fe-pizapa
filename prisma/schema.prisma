@@ -59,6 +59,7 @@ model VerificationToken {
 
 model Post {
   id          Int        @id @default(autoincrement())
+  userId      String
   name        String
   isAnonymous Boolean    @default(false)
   title       String
@@ -86,4 +87,14 @@ model TagsOnPosts {
   assignedBy String
 
   @@id([postId, tagId])
+}
+
+model Comment {
+  id    Int    @id @default(autoincrement())
+  postId Int
+  userId String
+  name  String
+  avatarLink String
+  content String
+  createdAt   DateTime   @default(now())
 }
